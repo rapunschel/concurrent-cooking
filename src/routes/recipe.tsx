@@ -5,7 +5,7 @@ export default function Recipe() {
 
   useEffect(() => {
     const markdownFileContent = async () => {
-      const res = (await import(`../public/recipes/red-beet-soup.md?raw`))
+      const res = (await import(`../recipes/red-beet-soup.md?raw`))
         .default;
       setData(res);
     };
