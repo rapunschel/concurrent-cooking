@@ -2,14 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import Recipe from "./routes/recipe";
-
+import Recipe, { loader as recipeLoader } from "./routes/recipe";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <div>Hello World.</div>,
   },
-  { path: "/recipes/:recipe", element: <Recipe /> },
+  { path: "/recipes/:recipeId", element: <Recipe />, loader: recipeLoader },
 ]);
 const root = document.getElementById("root")!;
 

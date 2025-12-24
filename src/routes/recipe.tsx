@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router";
+
+export async function loader({ params }: any) {
+  const recipe = (await import(`../recipes/${params.recipeId}.md?raw`))
+    .default;
+  return { recipe };
+}
 
 export default function Recipe() {
-  const [recipe, setData] = useState("");
+  const { recipe } = useLoaderData();
 
-  useEffect(() => {
-    const markdownFileContent = async () => {
-      const res = (await import(`../recipes/red-beet-soup.md?raw`))
-        .default;
-      setData(res);
-    };
-    markdownFileContent();
-  }, [recipe]);
   return (
     <>
       <p>{recipe}</p>
