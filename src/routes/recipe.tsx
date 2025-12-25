@@ -1,11 +1,13 @@
 import { useLoaderData } from "react-router";
-import parse from 'html-react-parser';
-import { getMarkdownMetadata, markdownToHtml } from "ts-markdown-parser";
-import { elementToHtml, parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
+import parse from "html-react-parser";
+import { getMarkdownMetadata } from "ts-markdown-parser";
+import {
+  elementToHtml,
+  parseMarkdown,
+} from "ts-markdown-parser/utils/markdown-parser.js";
 
 export async function loader({ params }: any) {
-  const md = (await import(`../recipes/${params.recipeId}.md?raw`))
-    .default;
+  const md = (await import(`../recipes/${params.recipeId}.md?raw`)).default;
   return { md };
 }
 
