@@ -1,6 +1,9 @@
+//import { useState } from "react";
+
 type RecipeMetaData = {
   recipe: {
     title: string;
+    tags: string[];
     threads: number;
     user: string;
     time: number;
@@ -8,13 +11,50 @@ type RecipeMetaData = {
 };
 
 export default function Home() {
-  const data = testData;
   return (
     <div className="home">
+      <Terminal />
+    </div>
+  );
+}
+
+function Terminal() {
+  const data = testData;
+  const colors = [
+    "rgb(160, 255, 119)",
+    "rgba(15, 191, 53, 1)",
+    "rgba(37, 62, 222, 1)",
+    "rgba(217, 140, 245, 1)",
+    "rgba(252, 137, 37, 1)",
+    "rgba(239, 233, 52, 1)",
+    "rgba(247, 105, 133, 1)",
+    "rgba(235, 189, 148, 0.7)",
+  ];
+
+  let uniqueTags: string[] = ["All"].concat(
+    Array.from(
+      new Set(
+        testData.reduce(
+          (tags: string[], recipe) => tags.concat(recipe.tags),
+          []
+        )
+      )
+    )
+  );
+
+  //const [category, setCategory] = useState("All");
+
+  return (
+    <>
       <div className="category-list">
+        {uniqueTags.map((tag, index) => {
+          return (
+            <p style={{ backgroundColor: colors[index % colors.length] }}>
+              {tag}
+            </p>
+          );
+        })}
         {/* TODO react element for categories */}
-        <p style={{ backgroundColor: "rgb(160, 255, 119)" }}>All</p>
-        <p style={{ backgroundColor: "rgba(245, 189, 140, 1)" }}>Cat food</p>
       </div>
       <div className="metadata">
         <p>Title</p>
@@ -27,7 +67,7 @@ export default function Home() {
           return <RecipeItem key={index} recipe={recipe} />;
         })}
       </div>
-    </div>
+    </>
   );
 }
 
