@@ -78,8 +78,8 @@ function Step(
   );
 }
 
-function Tag(content: string, type: string): ReactElement {
-  return <>{parse(`<${type}>${content}</${type}>`)}</>;
+function Tag(content: string, type: string, className: string = ""): ReactElement {
+  return <>{parse(`<${type} class='${className}'>${content}</${type}>`)}</>;
 }
 
 function Body(md: Record<string, any>): ReactElement {
@@ -95,7 +95,7 @@ function Body(md: Record<string, any>): ReactElement {
     if (currSection == "Steps" && type == "ul") {
       contents.push(Step(content, true));
     } else {
-      contents.push(Tag(content, type));
+      contents.push(Tag(content, type, type == "p" ? "verbose" : ""));
     }
   }
   return <>{contents}</>;

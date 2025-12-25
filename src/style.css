@@ -14,9 +14,10 @@
 }
 
 @media (min-width: 0px) {
-  .category-list > p,
-  .metadata > p,
-  .recipe-item > p {
+
+  .category-list>p,
+  .metadata>p,
+  .recipe-item>p {
     font-size: 1rem;
   }
 
@@ -29,11 +30,13 @@
 }
 
 @media (min-width: 700px) {
-  .category-list > p,
-  .metadata > p,
-  .recipe-item > p {
+
+  .category-list>p,
+  .metadata>p,
+  .recipe-item>p {
     font-size: 1.2rem;
   }
+
   .recipe-item,
   .metadata {
     display: grid;
@@ -59,4 +62,8 @@
 .category-list p {
   color: black;
   font-weight: 900;
+}
+
+.verbose {
+  display: none;
 }
