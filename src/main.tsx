@@ -3,10 +3,12 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Recipe, { loader as recipeLoader } from "./routes/recipe";
+import Home from "./routes/home";
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <div>Hello World.</div>,
+    path: "/concurrent-cooking",
+    element: <Home />,
   },
   { path: "/recipes/:recipeId", element: <Recipe />, loader: recipeLoader },
 ]);

@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router";
 import parse from 'html-react-parser';
 import { getMarkdownMetadata } from "ts-markdown-parser";
-import { elementToHtml, parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
-import type { Component, ReactElement } from "react";
+import { parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
+import type { ReactElement } from "react";
 
 import "./recipe.css"
 
