@@ -4,13 +4,31 @@ import { getMarkdownMetadata } from "ts-markdown-parser";
 import { elementToHtml, parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
 import type { Component, ReactElement } from "react";
 
+import "./recipe.css"
+
 export async function loader({ params }: any) {
   const txt = (await import(`../recipes/${params.recipeId}.md?raw`))
     .default;
   return { txt };
 }
 
-function Meta(fm: Record<string, any>): ReactElement {
+function CPUs(max: number, available: number = 1): ReactElement {
+  let cpus: ReactElement[] = [];
+  for (let i = 0; i < max; i++) {
+    const id = `cpu${i + 1}`
+    const classes = "cpu" + ((i < available ? " available" : ""))
+    cpus.push(<span className={classes} id={id}>|</span >);
+  }
+  return (
+    <>
+      <span id="cpus">
+        [{cpus}]
+      </span>
+    </>
+  )
+}
+
+function Head(fm: Record<string, any>): ReactElement {
   const title = fm.title;
   const user = fm.user;
   const tags = fm.tags
@@ -26,13 +44,15 @@ function Meta(fm: Record<string, any>): ReactElement {
   return (
     <>
       <h1>{title}</h1>
-      <div id="meta">
-        <ul>
+      <div id="header">
+        <ul className="meta">
           <li>tags: {tags}</li>
           <li>user: {user}</li>
-          <li>threads: {threads}</li>
           <li>time: {time}</li>
+          <li>threads: {threads}</li>
+          <li>CPUs: {CPUs(threads)}</li>
         </ul>
+        <div>--verbose</div>
       </div>
     </>
   )
@@ -76,7 +96,7 @@ function Body(md: Record<string, any>): ReactElement {
 export default function Recipe(): ReactElement {
   const { txt } = useLoaderData();
 
-  const meta = Meta(getMarkdownMetadata(txt));
+  const meta = Head(getMarkdownMetadata(txt));
   const body = Body(parseMarkdown(txt));
 
   return (

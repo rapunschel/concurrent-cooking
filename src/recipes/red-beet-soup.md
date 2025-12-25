@@ -2,7 +2,7 @@
 title: Red beet soup
 user: harisont
 tags: vegetarian, vegan
-threads: 3
+threads: 2
 time: 60 # minutes
 ---
 
