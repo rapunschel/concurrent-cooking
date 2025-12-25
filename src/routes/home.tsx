@@ -17,14 +17,14 @@ export default function Home() {
       <div className="category-list">
         {/* TODO react element for categories */}
         <p style={{ backgroundColor: "rgb(160, 255, 119)" }}>All</p>
-        <p>Cat food</p>
+        <p style={{ backgroundColor: "rgba(245, 189, 140, 1)" }}>Cat food</p>
       </div>
       <div className="metadata">
         <p>Title</p>
         <p>User </p>
-        <p>Threads</p>
-        <p>#</p>
         <p>Time</p>
+        <p>Tags</p>
+        <p>#</p>
       </div>
       <div className="recipe-container">
         {data.map((recipe, index) => {
@@ -43,7 +43,6 @@ function RecipeItem(props: RecipeMetaData) {
         <p>{title}</p>
         <p>{user}</p>
         <p>{time}</p>
-
         <p>{tags.join(", ")}</p>
         <p>{threads}</p>
       </div>
