@@ -1,8 +1,12 @@
 const e=`---
 title: Red beet soup
+user: harisont
 tags: vegetarian, vegan
-threads:
+threads: 2
+time: 60 # minutes
 ---
+
+This soup is kinda good, but mostly you make it because of its cool color.
 
 ## Ingredients
 - red beets
