@@ -1,7 +1,6 @@
 type RecipeMetaData = {
   recipe: {
     title: string;
-    tags: string[];
     threads: number;
     user: string;
     time: number;
@@ -21,7 +20,6 @@ export default function Home() {
         <p>Title</p>
         <p>User </p>
         <p>Time</p>
-        <p>Tags</p>
         <p>#</p>
       </div>
       <div className="recipe-container">
@@ -34,14 +32,13 @@ export default function Home() {
 }
 
 function RecipeItem(props: RecipeMetaData) {
-  const { title, tags, threads, user, time } = props.recipe;
+  const { title, threads, user, time } = props.recipe;
   return (
     <>
       <div className="recipe-item">
         <p>{title}</p>
         <p>{user}</p>
         <p>{time}</p>
-        <p>{tags.join(", ")}</p>
         <p>{threads}</p>
       </div>
     </>
