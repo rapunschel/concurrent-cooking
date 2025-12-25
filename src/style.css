@@ -24,20 +24,7 @@
   .metadata {
     display: grid;
     grid-gap: clamp(4px, 8px, 12px);
-    grid-template-columns: 1fr 0.5fr 0.3fr 1fr 0.3fr;
-  }
-}
-
-@media (min-width: 700px) {
-  .category-list > p,
-  .metadata > p,
-  .recipe-item > p {
-    font-size: 1.2rem;
-  }
-  .recipe-item,
-  .metadata {
-    display: grid;
-    grid-template-columns: 2fr 1fr 0.5fr 1fr 0.3fr;
+    grid-template-columns: 3fr 2fr 1fr 0.5fr;
   }
 }
 
