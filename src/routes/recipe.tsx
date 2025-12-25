@@ -1,31 +1,30 @@
 import { useLoaderData } from "react-router";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 import { getMarkdownMetadata } from "ts-markdown-parser";
 import { parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
 import type { ReactElement } from "react";
 
-import "./recipe.css"
-
 export async function loader({ params }: any) {
-  const txt = (await import(`../recipes/${params.recipeId}.md?raw`))
-    .default;
+  const txt = (await import(`../recipes/${params.recipeId}.md?raw`)).default;
   return { txt };
 }
 
 function CPUs(max: number, available: number = 1): ReactElement {
   let cpus: ReactElement[] = [];
   for (let i = 0; i < max; i++) {
-    const id = `cpu${i + 1}`
-    const classes = "cpu" + ((i < available ? " available" : ""))
-    cpus.push(<span className={classes} id={id}>|</span >);
+    const id = `cpu${i + 1}`;
+    const classes = "cpu" + (i < available ? " available" : "");
+    cpus.push(
+      <span className={classes} id={id}>
+        |
+      </span>
+    );
   }
   return (
     <>
-      <span id="cpus">
-        [{cpus}]
-      </span>
+      <span id="cpus">[{cpus}]</span>
     </>
-  )
+  );
 }
 
 function Head(fm: Record<string, any>): ReactElement {
@@ -40,7 +39,8 @@ function Head(fm: Record<string, any>): ReactElement {
   const tot_time = fm.time;
   const hours = tot_time / 60;
   const mins = tot_time % 60;
-  const time = (hours > 0 ? `${hours} hours` : "") + (mins > 0 ? `${mins} minutes` : "");
+  const time =
+    (hours > 0 ? `${hours} hours` : "") + (mins > 0 ? `${mins} minutes` : "");
   return (
     <>
       <h1>{title}</h1>
@@ -55,23 +55,31 @@ function Head(fm: Record<string, any>): ReactElement {
         <div>--verbose</div>
       </div>
     </>
-  )
+  );
 }
 
-function Step(lis: string, parallel: boolean = false, threads: number = 1): ReactElement {
+function Step(
+  lis: string,
+  parallel: boolean = false,
+  threads: number = 1
+): ReactElement {
   return (
     <>
       <ul
-        className={(parallel ? "parallel" : "")}
-        style={{ display: "grid", gridTemplateColumns: `repeat(${threads},1fr)` }}>
+        className={parallel ? "parallel" : ""}
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${threads},1fr)`,
+        }}
+      >
         {parse(lis)}
-      </ul >
+      </ul>
     </>
   );
 }
 
 function Tag(content: string, type: string): ReactElement {
-  return <>{parse(`<${type}>${content}</${type}>`)}</>
+  return <>{parse(`<${type}>${content}</${type}>`)}</>;
 }
 
 function Body(md: Record<string, any>): ReactElement {

@@ -1,5 +1,3 @@
-import "./home.css";
-
 type RecipeMetaData = {
   recipe: {
     title: string;
@@ -13,7 +11,7 @@ type RecipeMetaData = {
 export default function Home() {
   const data = testData;
   return (
-    <div>
+    <div className="home">
       <div className="category-list">
         {/* TODO react element for categories */}
         <p style={{ backgroundColor: "rgb(160, 255, 119)" }}>All</p>
