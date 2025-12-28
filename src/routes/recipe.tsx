@@ -15,14 +15,12 @@ function CPUs(max: number, available: number = 1): ReactElement {
     const id = `cpu${i + 1}`;
     const classes = "cpu" + (i < available ? " available" : "");
     cpus.push(
-      <span className={classes} id={id}>
-        |
-      </span>
+      <span className={classes} id={id}>▮</span>
     );
   }
   return (
     <>
-      <span id="cpus">[{cpus}]</span>
+      <span id="cpus">{cpus}</span>
     </>
   );
 }
@@ -46,13 +44,12 @@ function Head(fm: Record<string, any>): ReactElement {
       <h1>{title}</h1>
       <div id="header">
         <ul className="meta">
-          <li>tags: {tags}</li>
-          <li>user: {user}</li>
-          <li>time: {time}</li>
-          <li>threads: {threads}</li>
-          <li>CPUs: {CPUs(threads)}</li>
+          <li><span className="key">tags:</span> {tags}</li>
+          <li><span className="key">user:</span> {user}</li>
+          <li><span className="key">time:</span> {time}</li>
+          <li><span className="key">threads:</span> {threads} <span className="key">CPUs:</span> {CPUs(threads)}</li>
         </ul>
-        <div>--verbose</div>
+        <button>--verbose</button>
       </div>
     </>
   );
@@ -66,7 +63,7 @@ function Step(
   return (
     <>
       <ul
-        className={parallel ? "parallel" : ""}
+        className={parallel ? "step parallel" : "step"}
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${threads},1fr)`,
@@ -78,8 +75,8 @@ function Step(
   );
 }
 
-function Tag(content: string, type: string): ReactElement {
-  return <>{parse(`<${type}>${content}</${type}>`)}</>;
+function Tag(content: string, type: string, className: string = ""): ReactElement {
+  return <>{parse(`<${type} class='${className}'>${content}</${type}>`)}</>;
 }
 
 function Body(md: Record<string, any>): ReactElement {
@@ -95,7 +92,7 @@ function Body(md: Record<string, any>): ReactElement {
     if (currSection == "Steps" && type == "ul") {
       contents.push(Step(content, true));
     } else {
-      contents.push(Tag(content, type));
+      contents.push(Tag(content, type, type == "p" ? "verbose" : ""));
     }
   }
   return <>{contents}</>;
@@ -108,9 +105,9 @@ export default function Recipe(): ReactElement {
   const body = Body(parseMarkdown(txt));
 
   return (
-    <>
+    <div className="recipe">
       {meta}
       {body}
-    </>
+    </div>
   );
 }

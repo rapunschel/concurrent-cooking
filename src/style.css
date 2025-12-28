@@ -5,7 +5,7 @@
 * {
   background-color: var(--primary-color);
   font-family: "Lucida Console", "Courier New", monospace;
-  color: gray;
+  color: rgb(201, 201, 201);
 }
 
 .home * {
@@ -46,4 +46,91 @@
 .category-list p {
   color: black;
   font-weight: 900;
+}
+
+.verbose {
+  display: none;
+}
+
+.recipe * {
+  font-size: 1rem;
+  font-style: normal;
+}
+
+.cpu.available,
+.recipe h1,
+.recipe h2,
+.recipe h3 {
+  color: rgb(160, 255, 119);
+  font-weight: lighter;
+}
+
+.recipe h2,
+.recipe h3 {
+  font-weight: lighter;
+}
+
+.recipe h1::before {
+  content: "# ";
+}
+
+.recipe h2::before {
+  content: "## ";
+}
+
+.recipe h3::before {
+  content: "### ";
+}
+
+ul,
+ol {
+  padding-left: 1em;
+}
+
+li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.meta {
+  padding: 0;
+  margin: 0;
+}
+
+.meta .key {
+  color: white;
+}
+
+button {
+  border: none;
+  text-decoration: underline;
+  color: rgb(160, 255, 119);
+  padding: 1em 1em 1em 0em;
+  cursor: pointer;
+}
+
+li::before {
+  content: "* ";
+}
+
+.step li::before {
+  content: "";
+}
+
+.meta li::before {
+  content: "";
+}
+
+ul.step::before {
+  content: "* ";
+}
+
+.step li {
+  list-style-type: none;
+  padding-left: 1em;
+}
+
+.cpu {
+  font-weight: bolder;
 }
