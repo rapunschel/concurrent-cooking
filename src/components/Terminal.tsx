@@ -1,10 +1,10 @@
 //import { useState } from "react";
 import type React from "react";
 import generateColor from "../utils/generateColor";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { fetchAllRecipes, fetchRecipes, fetchTags } from "../api/recipe";
 import type { RecipeLoaderType, RecipeMetaData } from "../types.ts";
-import { deslugify } from "../utils/utils.ts";
+import { deslugify, slugify } from "../utils/utils.ts";
 
 export async function loader({ params }: any): Promise<RecipeLoaderType> {
   let selectedTag: string = params.tagId ? deslugify(params.tagId) : "all";
@@ -33,6 +33,7 @@ export default function Terminal() {
 
   const saturation = 100;
   const lightness = 70;
+  const navigate = useNavigate();
   return (
     <>
       <div className="tag-list">
@@ -45,6 +46,11 @@ export default function Terminal() {
               style={{
                 backgroundColor: generateColor(tag, saturation, lightness),
                 padding: "4px",
+              }}
+              onClick={() => {
+                navigate(`/concurrent-cooking/${slugify(tag)}`, {
+                  replace: false,
+                });
               }}
             />
           );
@@ -79,15 +85,17 @@ function TagItem({
   tag,
   style,
   isSelected,
+  onClick,
 }: {
   tag: string;
   style?: React.CSSProperties;
   isSelected: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   return (
-    <p className="tag" style={style ?? {}}>
+    <button className="tag" style={style ?? {}} onClick={onClick ?? undefined}>
       {isSelected ? `[${tag}]` : tag}
-    </p>
+    </button>
   );
 }
 
