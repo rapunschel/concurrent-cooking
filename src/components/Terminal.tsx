@@ -1,6 +1,6 @@
 //import { useState } from "react";
 import type React from "react";
-import generateColor from "../routes/generateColor";
+import generateColor from "../utils/generateColor";
 import { useLoaderData } from "react-router";
 
 export async function loader({ params }: any): Promise<LoaderType> {
