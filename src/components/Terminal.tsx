@@ -3,14 +3,14 @@ import type React from "react";
 import generateColor from "../utils/generateColor";
 import { useLoaderData } from "react-router";
 import { fetchAllRecipes, fetchRecipes, fetchTags } from "../api/recipe";
+import type { RecipeLoaderType, RecipeMetaData } from "../types.ts";
 
-export async function loader({ params }: any): Promise<LoaderType> {
+export async function loader({ params }: any): Promise<RecipeLoaderType> {
   let selectedTag: string = params.tagId
     ? params.tagId.replace(/-/g, " ")
     : "all";
 
   const tags: string[] = await fetchTags();
-
   const recipes: RecipeMetaData[] =
     selectedTag === "all"
       ? await fetchAllRecipes()
@@ -18,20 +18,6 @@ export async function loader({ params }: any): Promise<LoaderType> {
 
   return { selectedTag, tags, recipes };
 }
-
-type LoaderType = {
-  selectedTag: string;
-  tags: string[];
-  recipes: RecipeMetaData[];
-};
-
-type RecipeMetaData = {
-  title: string;
-  tags: string[];
-  cpus: number;
-  user: string;
-  time: number;
-};
 
 type RecipeItemProps = {
   recipe: RecipeMetaData;
