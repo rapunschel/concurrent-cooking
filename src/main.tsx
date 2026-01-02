@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, Navigate } from "react-router";
+import { createHashRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Recipe, { loader as recipeLoader } from "./routes/recipe";
 import Home, { loader as homeLoader } from "./routes/home";
@@ -8,9 +8,9 @@ import Terminal, { loader as terminalLoader } from "./components/Terminal.jsx";
 
 import "./style.css";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/concurrent-cooking",
+    path: "/",
     element: <Home />,
     children: [
       {
@@ -31,11 +31,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/concurrent-cooking/recipes/:recipeId",
+    path: "recipes/:recipeId",
     element: <Recipe />,
     loader: recipeLoader,
   },
 ]);
+
 const root = document.getElementById("root")!;
 
 createRoot(root).render(
