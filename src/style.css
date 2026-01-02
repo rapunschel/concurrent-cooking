@@ -1,12 +1,22 @@
 :root {
   --primary-color: black;
+  --terminal-min-width: 300px;
 }
 
 * {
-  background-color: var(--primary-color);
   font-family: "Lucida Console", "Courier New", monospace;
   color: rgb(201, 201, 201);
 }
+
+body {
+  background-color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
+}
+
+/* home */
 
 .home * {
   padding: 0;
@@ -15,39 +25,61 @@
 
 @media (min-width: 0px) {
   .category-list > p,
-  .metadata > p,
+  .terminal-header > p,
   .recipe-item > p {
     font-size: 1rem;
   }
 
   .recipe-item,
-  .metadata {
+  .terminal-header {
     display: grid;
-    grid-gap: clamp(4px, 8px, 12px);
-    grid-template-columns: 3fr 2fr 1fr 0.5fr;
+    min-width: var(--terminal-min-width);
+    overflow-x: auto;
+    grid-template-columns: 2fr 1.4fr 1fr 1fr;
   }
 }
 
-.metadata {
-  background-color: rgb(160, 255, 119);
+@media (min-width: 400px) {
+  .category-list > p,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr 1fr;
+  }
 }
 
-.metadata p {
+.terminal-header p {
   color: black;
   font-weight: 900;
-  background-color: rgb(160, 255, 119);
 }
 
-.category-list {
+.recipe-item:hover {
+  background-color: rgb(3, 77, 8);
+}
+
+.terminal-header p,
+.recipe-item p {
+  padding: 0.25em 0.3em;
+}
+
+.tag-list {
   display: flex;
-  gap: 1em;
+  min-width: var(--terminal-min-width);
+  flex-wrap: wrap;
 }
 
-.category-list p {
+.tag {
+  background-color: antiquewhite;
   color: black;
   font-weight: 900;
 }
 
+/* recipe */
 .verbose {
   display: none;
 }
