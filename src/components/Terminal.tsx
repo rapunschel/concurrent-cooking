@@ -4,11 +4,10 @@ import generateColor from "../utils/generateColor";
 import { useLoaderData } from "react-router";
 import { fetchAllRecipes, fetchRecipes, fetchTags } from "../api/recipe";
 import type { RecipeLoaderType, RecipeMetaData } from "../types.ts";
+import { deslugify } from "../utils/utils.ts";
 
 export async function loader({ params }: any): Promise<RecipeLoaderType> {
-  let selectedTag: string = params.tagId
-    ? params.tagId.replace(/-/g, " ")
-    : "all";
+  let selectedTag: string = params.tagId ? deslugify(params.tagId) : "all";
 
   const tags: string[] = await fetchTags();
   const recipes: RecipeMetaData[] =
