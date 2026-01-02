@@ -6,6 +6,7 @@
 * {
   font-family: "Lucida Console", "Courier New", monospace;
   color: rgb(201, 201, 201);
+  box-sizing: border-box;
 }
 
 body {
@@ -23,11 +24,17 @@ button {
   margin: 0;
 }
 
-@media (min-width: 0px) {
-  .category-list > p,
+/*Small phones */
+@media (width < 400px) {
+  .tag,
   .terminal-header > p,
   .recipe-item > p {
     font-size: 1rem;
+  }
+
+  .tag {
+    min-height: 48px;
+    min-width: 48px;
   }
 
   .recipe-item,
@@ -39,8 +46,29 @@ button {
   }
 }
 
-@media (min-width: 400px) {
-  .category-list > p,
+/* large phones */
+@media (width <= 480px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+
+  .tag {
+    min-height: 40px;
+    min-width: 40px;
+  }
+
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr 1fr;
+  }
+}
+
+/* tablets*/
+@media (width <= 1280px) {
+  .tag,
   .terminal-header > p,
   .recipe-item > p {
     font-size: 1rem;
@@ -53,13 +81,27 @@ button {
   }
 }
 
+@media (width > 1280px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    grid-template-columns: 4fr 2fr 1fr 1fr;
+  }
+
+  .recipe-item:hover {
+    background-color: rgb(3, 77, 8);
+  }
+}
+
 .terminal-header p {
   color: black;
   font-weight: 900;
-}
-
-.recipe-item:hover {
-  background-color: rgb(3, 77, 8);
 }
 
 .terminal-header p,
@@ -77,6 +119,7 @@ button {
   background-color: antiquewhite;
   color: black;
   font-weight: 900;
+  text-decoration: none;
 }
 
 /* recipe */
