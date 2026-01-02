@@ -20,10 +20,10 @@ const router = createHashRouter([
       },
       {
         path: "all",
-        element: <Navigate to="/concurrent-cooking" replace />,
+        element: <Navigate to="/" replace />,
       },
       {
-        path: "/concurrent-cooking/:tagId",
+        path: "/:tagId",
         element: <Terminal />,
         loader: terminalLoader,
       },

@@ -45,10 +45,9 @@ export default function Terminal() {
               isSelected={tag === selectedTag}
               style={{
                 backgroundColor: generateColor(tag, saturation, lightness),
-                padding: "4px",
               }}
               onClick={() => {
-                navigate(`/concurrent-cooking/${slugify(tag)}`, {
+                navigate(`/${slugify(tag)}`, {
                   replace: false,
                 });
               }}
