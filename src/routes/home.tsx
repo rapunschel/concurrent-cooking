@@ -1,5 +1,34 @@
 //import { useState } from "react";
+import type React from "react";
 import generateColor from "./generateColor";
+import { useLoaderData } from "react-router";
+
+export async function loader({ params }: any): Promise<LoaderType> {
+  let selectedTag: string = params.tagId.replace(/-/g, " ");
+  const tags: string[] = ["all"].concat(
+    Array.from(
+      new Set(
+        testData.reduce(
+          (tags: string[], recipe) => tags.concat(recipe.tags),
+          []
+        )
+      )
+    )
+  );
+
+  const recipes: RecipeMetaData[] =
+    selectedTag === "all"
+      ? testData
+      : testData.filter((recipe) => recipe.tags.includes(selectedTag));
+
+  return { selectedTag, tags, recipes };
+}
+
+type LoaderType = {
+  selectedTag: string;
+  tags: string[];
+  recipes: RecipeMetaData[];
+};
 
 type RecipeMetaData = {
   title: string;
@@ -11,6 +40,7 @@ type RecipeMetaData = {
 
 type RecipeItemProps = {
   recipe: RecipeMetaData;
+  style?: React.CSSProperties;
 };
 
 export default function Home() {
@@ -22,45 +52,39 @@ export default function Home() {
 }
 
 function Terminal() {
-  const data: RecipeMetaData[] = testData;
-  let uniqueTags: string[] = ["All"].concat(
-    Array.from(
-      new Set(
-        testData.reduce(
-          (tags: string[], recipe) => tags.concat(recipe.tags),
-          []
-        )
-      )
-    )
-  );
+  const {
+    selectedTag,
+    tags,
+    recipes,
+  }: { selectedTag: string; tags: string[]; recipes: RecipeMetaData[] } =
+    useLoaderData();
 
-  //const [category, setCategory] = useState("All");
-
+  const saturation = 100;
+  const lightness = 70;
   return (
     <>
-      <div className="category-list">
-        {uniqueTags.map((tag) => {
+      <div className="tag-list">
+        {tags.map((tag: string) => {
           return (
-            <p
+            <TagItem
+              key={tag}
+              tag={tag}
+              isSelected={tag === selectedTag}
               style={{
-                backgroundColor: generateColor(tag, 100, 70),
+                backgroundColor: generateColor(tag, saturation, lightness),
                 padding: "4px",
               }}
-            >
-              {tag}
-            </p>
+            />
           );
         })}
-        {/* TODO react element for categories */}
       </div>
-      <div className="metadata">
-        <p>title</p>
-        <p>user </p>
-        <p>time</p>
-        <p>cpus</p>
-      </div>
+      <TerminalHeader
+        style={{
+          backgroundColor: generateColor(selectedTag, saturation, lightness),
+        }}
+      />
       <div className="recipe-container">
-        {data.map((recipe, index) => {
+        {recipes.map((recipe, index) => {
           return <RecipeItem key={index} recipe={recipe} />;
         })}
       </div>
@@ -68,15 +92,42 @@ function Terminal() {
   );
 }
 
-function RecipeItem({ recipe }: RecipeItemProps) {
+function TerminalHeader({ style }: { style?: React.CSSProperties }) {
+  return (
+    <div className="terminal-header" style={style ?? {}}>
+      <p>title</p>
+      <p>user</p>
+      <p>time</p>
+      <p>cpus</p>
+    </div>
+  );
+}
+
+function TagItem({
+  tag,
+  style,
+  isSelected,
+}: {
+  tag: string;
+  style?: React.CSSProperties;
+  isSelected: boolean;
+}) {
+  return (
+    <p className="tag" style={style ?? {}}>
+      {isSelected ? `[${tag}]` : tag}
+    </p>
+  );
+}
+
+function RecipeItem({ recipe, style }: RecipeItemProps) {
   const { title, cpus, user, time } = recipe;
   return (
     <>
-      <div className="recipe-item">
+      <div className="recipe-item" style={style ?? {}}>
         <p>{title}</p>
         <p>{user}</p>
         <p>{time}</p>
-        <p> {cpus}</p>
+        <p>{cpus}</p>
       </div>
     </>
   );
