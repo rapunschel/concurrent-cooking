@@ -120,6 +120,7 @@ button {
   color: black;
   font-weight: 900;
   text-decoration: none;
+  padding: 4px;
 }
 
 /* recipe */

@@ -34,6 +34,13 @@ export default function Terminal() {
   const saturation = 100;
   const lightness = 70;
   const navigate = useNavigate();
+
+  const handleOnTagClick = (tag: string) => {
+    navigate(`/${slugify(tag)}`, {
+      replace: false,
+    });
+  };
+
   return (
     <>
       <div className="tag-list">
@@ -46,11 +53,7 @@ export default function Terminal() {
               style={{
                 backgroundColor: generateColor(tag, saturation, lightness),
               }}
-              onClick={() => {
-                navigate(`/${slugify(tag)}`, {
-                  replace: false,
-                });
-              }}
+              onClick={(tag: string) => handleOnTagClick(tag)}
             />
           );
         })}
@@ -89,10 +92,16 @@ function TagItem({
   tag: string;
   style?: React.CSSProperties;
   isSelected: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (text: string) => void;
 }) {
   return (
-    <button className="tag" style={style ?? {}} onClick={onClick ?? undefined}>
+    <button
+      className="tag"
+      style={style ?? {}}
+      onClick={() => {
+        onClick?.(tag);
+      }}
+    >
       {isSelected ? `[${tag}]` : tag}
     </button>
   );
