@@ -1,4 +1,3 @@
-//import { useState } from "react";
 import type React from "react";
 import generateColor from "../utils/generateColor";
 import { useLoaderData, useNavigate } from "react-router";
@@ -21,6 +20,7 @@ export async function loader({ params }: any): Promise<RecipeLoaderType> {
 type RecipeItemProps = {
   recipe: RecipeMetaData;
   style?: React.CSSProperties;
+  onClick?: (text: string) => void;
 };
 
 export default function Terminal() {
@@ -39,6 +39,10 @@ export default function Terminal() {
     navigate(`/${slugify(tag)}`, {
       replace: false,
     });
+  };
+
+  const handleOnRecipeClick = (title: string) => {
+    navigate(`/recipes/${slugify(title)}`);
   };
 
   return (
@@ -65,7 +69,13 @@ export default function Terminal() {
       />
       <div className="recipe-container">
         {recipes.map((recipe, index) => {
-          return <RecipeItem key={index} recipe={recipe} />;
+          return (
+            <RecipeItem
+              key={index}
+              recipe={recipe}
+              onClick={handleOnRecipeClick}
+            />
+          );
         })}
       </div>
     </>
@@ -107,11 +117,20 @@ function TagItem({
   );
 }
 
-function RecipeItem({ recipe, style }: RecipeItemProps) {
+function RecipeItem({ recipe, style, onClick }: RecipeItemProps) {
   const { title, cpus, user, time } = recipe;
   return (
     <>
-      <div className="recipe-item" style={style ?? {}}>
+      <div
+        role="button"
+        tabIndex={0}
+        className="recipe-item"
+        style={style ?? {}}
+        onClick={(event) => {
+          event.stopPropagation();
+          onClick?.(title);
+        }}
+      >
         <p>{title}</p>
         <p>{user}</p>
         <p>{time}</p>

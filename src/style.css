@@ -31,7 +31,9 @@ button {
   .recipe-item > p {
     font-size: 1rem;
   }
-
+  .recipe-item {
+    min-height: 48px;
+  }
   .tag {
     min-height: 48px;
     min-width: 48px;
@@ -74,6 +76,10 @@ button {
     font-size: 1rem;
   }
 
+  .recipe-item {
+    min-height: 40px;
+  }
+
   .recipe-item,
   .terminal-header {
     display: grid;
@@ -87,7 +93,6 @@ button {
   .recipe-item > p {
     font-size: 1rem;
   }
-
   .recipe-item,
   .terminal-header {
     display: grid;
