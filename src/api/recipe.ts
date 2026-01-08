@@ -16,6 +16,11 @@ export async function fetchRecipesData(
 ) {
   if (!tag || tag === "") tag = "all";
   const tags = await fetchTags();
+
+  if (!tags.includes(tag)) {
+    throw new Error(`Tag "${tag}" does not exist.`);
+  }
+
   const recipesData =
     tag === "all" ? data : data.filter((recipe) => recipe.tags.includes(tag));
 
@@ -29,6 +34,7 @@ export async function fetchRecipesData(
       recipe.time.toString().toLowerCase().includes(query)
     );
   });
+
   return { tags, recipes };
 }
 
