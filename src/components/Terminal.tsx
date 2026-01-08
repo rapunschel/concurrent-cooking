@@ -1,12 +1,25 @@
 import type React from "react";
 import generateColor from "../utils/generateColor";
-import { useLoaderData, useNavigate } from "react-router";
+import {
+  useLoaderData,
+  useNavigate,
+  Form,
+  type NavigateFunction,
+} from "react-router";
 import { fetchAllRecipes, fetchRecipes, fetchTags } from "../api/recipe";
-import type { RecipeLoaderType, RecipeMetaData } from "../types.ts";
+import type { RecipeMetaData } from "../types.ts";
 import { deslugify, slugify } from "../utils/utils.ts";
+import { useEffect, useState } from "react";
 
-export async function loader({ params }: any): Promise<RecipeLoaderType> {
+export async function loader({ params, request }: any): Promise<{
+  selectedTag: string;
+  tags: string[];
+  recipes: RecipeMetaData[];
+  q: string | null;
+}> {
   let selectedTag: string = params.tagId ? deslugify(params.tagId) : "all";
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
 
   const tags: string[] = await fetchTags();
   const recipes: RecipeMetaData[] =
@@ -14,7 +27,7 @@ export async function loader({ params }: any): Promise<RecipeLoaderType> {
       ? await fetchAllRecipes()
       : await fetchRecipes(selectedTag);
 
-  return { selectedTag, tags, recipes };
+  return { selectedTag, tags, recipes, q };
 }
 
 type RecipeItemProps = {
@@ -28,9 +41,15 @@ export default function Terminal() {
     selectedTag,
     tags,
     recipes,
-  }: { selectedTag: string; tags: string[]; recipes: RecipeMetaData[] } =
-    useLoaderData();
+    q,
+  }: {
+    selectedTag: string;
+    tags: string[];
+    recipes: RecipeMetaData[];
+    q: string | null;
+  } = useLoaderData();
 
+  const [isSearchActive, setSearchActive] = useState(Boolean(q));
   const saturation = 100;
   const lightness = 70;
   const navigate = useNavigate();
@@ -80,10 +99,73 @@ export default function Terminal() {
           );
         })}
       </div>
-
       <div className="terminal-cmds">
-        <span>search filter something</span>
+        <Search
+          props={{
+            q: q ?? "",
+            navigate,
+            isSearchActive,
+            onClick: () => {
+              setSearchActive(!isSearchActive);
+            },
+          }}
+        />
       </div>
+    </>
+  );
+}
+
+function Search({
+  props,
+}: {
+  props: {
+    q: string;
+    navigate: NavigateFunction;
+    isSearchActive: Boolean;
+    onClick: any;
+  };
+}) {
+  const { q, navigate, isSearchActive, onClick } = props;
+
+  useEffect(() => {
+    const input = document.getElementById("q") as HTMLInputElement | null;
+    if (input) {
+      input.value = q;
+    }
+  }, [q]);
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = (event.currentTarget.q as HTMLInputElement).value.trim();
+    navigate(`?q=${encodeURIComponent(query)}`);
+    const input = document.getElementById("q") as HTMLInputElement;
+    input.blur();
+  };
+
+  return (
+    <>
+      {isSearchActive ? (
+        <>
+          <Form id="search-form" role="search" tabIndex={0} onSubmit={onSubmit}>
+            <label htmlFor="q">search:&nbsp;</label>
+            <input
+              type="search"
+              id="q"
+              name="q"
+              aria-label="Search recipe"
+              defaultValue={q}
+              autoFocus
+            />
+            <button type="button" onClick={onClick}>
+              X
+            </button>
+          </Form>
+        </>
+      ) : (
+        <button type="button" onClick={onClick}>
+          search
+        </button>
+      )}
     </>
   );
 }
