@@ -53,6 +53,7 @@ export default function Terminal() {
     navigate(`/${slugify(tag)}`, {
       replace: false,
     });
+    if (setSearchActive) setSearchActive(false);
   };
 
   const handleOnRecipeClick = (title: string) => {
@@ -100,9 +101,7 @@ export default function Terminal() {
             q: q ?? "",
             navigate,
             isSearchActive,
-            onClick: () => {
-              setSearchActive(!isSearchActive);
-            },
+            setSearchActive,
           }}
         />
       </div>

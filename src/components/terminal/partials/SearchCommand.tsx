@@ -1,7 +1,7 @@
 import type React from "react";
 import { Form, type NavigateFunction } from "react-router";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function SearchCommand({
   props,
@@ -9,11 +9,13 @@ export function SearchCommand({
   props: {
     q: string;
     navigate: NavigateFunction;
-    isSearchActive: Boolean;
-    onClick: any;
+    isSearchActive: boolean;
+    setSearchActive: any;
   };
 }) {
-  const { q, navigate, isSearchActive, onClick } = props;
+  const { q, navigate, isSearchActive, setSearchActive } = props;
+  const [closedByUser, setClosedByUser] = useState(false);
+  const showSearch = !closedByUser && (isSearchActive || Boolean(q));
 
   useEffect(() => {
     const input = document.getElementById("q") as HTMLInputElement | null;
@@ -30,9 +32,19 @@ export function SearchCommand({
     input.blur();
   };
 
+  const openSearch = () => {
+    setClosedByUser(false);
+    setSearchActive(true);
+  };
+
+  const closeSearch = () => {
+    setClosedByUser(true);
+    setSearchActive(false);
+  };
+
   return (
     <>
-      {isSearchActive ? (
+      {showSearch ? (
         <>
           <Form id="search-form" role="search" tabIndex={0} onSubmit={onSubmit}>
             <label htmlFor="q">search:&nbsp;</label>
@@ -42,15 +54,15 @@ export function SearchCommand({
               name="q"
               aria-label="Search recipe"
               defaultValue={q}
-              autoFocus
+              autoFocus={isSearchActive}
             />
-            <button type="button" onClick={onClick}>
+            <button type="button" onClick={closeSearch}>
               X
             </button>
           </Form>
         </>
       ) : (
-        <button type="button" onClick={onClick}>
+        <button type="button" onClick={openSearch}>
           search
         </button>
       )}
