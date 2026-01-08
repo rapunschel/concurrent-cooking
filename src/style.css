@@ -109,6 +109,51 @@ button {
   }
 }
 
+.home button {
+  text-decoration: none;
+}
+
+.home button {
+  font-size: 1rem;
+  background-color: transparent;
+}
+
+#search-form {
+  display: flex;
+  flex-direction: row;
+}
+
+#search-form:focus-within {
+  border: 2px solid green;
+  padding: 4px 8px;
+  border-radius: 50vw;
+}
+#search-form input:focus {
+  outline: none;
+  box-shadow: none;
+}
+#search-form input {
+  display: flex;
+  flex-grow: 1 1 auto;
+  width: 50vw;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  box-shadow: none;
+}
+.terminal-cmds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  height: 60px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background: var(--primary-color);
+}
 .terminal-header {
   max-height: 25px;
 }
@@ -144,17 +189,6 @@ button {
   position: sticky;
   top: 0;
   z-index: 100;
-}
-.terminal-cmds {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  padding: 8px;
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-  background: black;
 }
 
 /* recipe */
