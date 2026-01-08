@@ -62,7 +62,7 @@ export default function Terminal() {
 
   return (
     <>
-      <div className="sticky">
+      <div className="header">
         <div className="tag-list">
           {tags.map((tag: string) => {
             return (
@@ -84,26 +84,30 @@ export default function Terminal() {
           }}
         />
       </div>
-      <div className="recipe-container">
-        {recipes.map((recipe, index) => {
-          return (
-            <RecipeItem
-              key={index}
-              recipe={recipe}
-              onClick={handleOnRecipeClick}
-            />
-          );
-        })}
+      <div className="terminal-content">
+        <div className="recipe-container">
+          {recipes.map((recipe, index) => {
+            return (
+              <RecipeItem
+                key={index}
+                recipe={recipe}
+                onClick={handleOnRecipeClick}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div className="terminal-cmds">
-        <SearchCommand
-          props={{
-            q: q ?? "",
-            navigate,
-            isSearchActive,
-            setSearchActive,
-          }}
-        />
+      <div className="footer">
+        <div className="terminal-cmds">
+          <SearchCommand
+            props={{
+              q: q ?? "",
+              navigate,
+              isSearchActive,
+              setSearchActive,
+            }}
+          />
+        </div>
       </div>
     </>
   );
