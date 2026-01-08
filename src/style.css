@@ -35,6 +35,11 @@ body,
   overflow-y: auto;
 }
 
+.terminal-header,
+.recipe-container {
+  width: 100vw;
+}
+
 .recipe-container {
   position: absolute;
 }
