@@ -1,6 +1,9 @@
 :root {
   --primary-color: black;
   --terminal-min-width: 300px;
+  --terminal-height: 44px;
+  --taglist-height: 15vh;
+  --terminal-cmds-height: 60px;
 }
 
 * {
@@ -10,6 +13,8 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background-color: var(--primary-color);
 }
 
@@ -104,6 +109,10 @@ button {
   }
 }
 
+.terminal-header {
+  max-height: 25px;
+}
+
 .terminal-header p {
   color: black;
   font-weight: 900;
@@ -117,6 +126,9 @@ button {
 .tag-list {
   display: flex;
   min-width: var(--terminal-min-width);
+  background-color: var(--primary-color);
+  max-height: var(--taglist-height);
+  overflow-y: scroll;
   flex-wrap: wrap;
 }
 
@@ -126,6 +138,23 @@ button {
   font-weight: 900;
   text-decoration: none;
   padding: 4px;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.terminal-cmds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  padding: 8px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background: black;
 }
 
 /* recipe */

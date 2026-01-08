@@ -47,26 +47,28 @@ export default function Terminal() {
 
   return (
     <>
-      <div className="tag-list">
-        {tags.map((tag: string) => {
-          return (
-            <TagItem
-              key={tag}
-              tag={tag}
-              isSelected={tag === selectedTag}
-              style={{
-                backgroundColor: generateColor(tag, saturation, lightness),
-              }}
-              onClick={(tag: string) => handleOnTagClick(tag)}
-            />
-          );
-        })}
+      <div className="sticky">
+        <div className="tag-list">
+          {tags.map((tag: string) => {
+            return (
+              <TagItem
+                key={tag}
+                tag={tag}
+                isSelected={tag === selectedTag}
+                style={{
+                  backgroundColor: generateColor(tag, saturation, lightness),
+                }}
+                onClick={(tag: string) => handleOnTagClick(tag)}
+              />
+            );
+          })}
+        </div>
+        <TerminalHeader
+          style={{
+            backgroundColor: generateColor(selectedTag, saturation, lightness),
+          }}
+        />
       </div>
-      <TerminalHeader
-        style={{
-          backgroundColor: generateColor(selectedTag, saturation, lightness),
-        }}
-      />
       <div className="recipe-container">
         {recipes.map((recipe, index) => {
           return (
@@ -77,6 +79,10 @@ export default function Terminal() {
             />
           );
         })}
+      </div>
+
+      <div className="terminal-cmds">
+        <span>search filter something</span>
       </div>
     </>
   );
