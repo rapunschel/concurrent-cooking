@@ -4,7 +4,9 @@ import { createHashRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Recipe, { loader as recipeLoader } from "./routes/recipe";
 import Home from "./routes/home";
-import Terminal, { loader as terminalLoader } from "./components/Terminal.jsx";
+import Terminal, {
+  loader as terminalLoader,
+} from "./components/terminal/Terminal.js";
 
 import "./style.css";
 

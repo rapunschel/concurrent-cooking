@@ -1,15 +1,13 @@
 import type React from "react";
-import generateColor from "../utils/generateColor";
-import {
-  useLoaderData,
-  useNavigate,
-  Form,
-  type NavigateFunction,
-} from "react-router";
-import { fetchRecipesData } from "../api/recipe";
-import type { RecipeMetaData } from "../types.ts";
-import { deslugify, slugify } from "../utils/utils.ts";
-import { useEffect, useState } from "react";
+import generateColor from "../../utils/generateColor.ts";
+import { useLoaderData, useNavigate } from "react-router";
+import { fetchRecipesData } from "../../api/recipe.ts";
+import type { RecipeMetaData } from "../../types.ts";
+import { deslugify, slugify } from "../../utils/utils.ts";
+import { useState } from "react";
+import { TagItem } from "./partials/TagItem.tsx";
+import { SearchCommand } from "./partials/SearchCommand.tsx";
+import { RecipeItem } from "./partials/RecipeItem.tsx";
 
 export async function loader({ params, request }: any): Promise<{
   selectedTag: string;
@@ -27,7 +25,7 @@ export async function loader({ params, request }: any): Promise<{
   return { selectedTag, tags, recipes, q };
 }
 
-type RecipeItemProps = {
+export type RecipeItemProps = {
   recipe: RecipeMetaData;
   style?: React.CSSProperties;
   onClick?: (text: string) => void;
@@ -97,7 +95,7 @@ export default function Terminal() {
         })}
       </div>
       <div className="terminal-cmds">
-        <Search
+        <SearchCommand
           props={{
             q: q ?? "",
             navigate,
@@ -112,61 +110,6 @@ export default function Terminal() {
   );
 }
 
-function Search({
-  props,
-}: {
-  props: {
-    q: string;
-    navigate: NavigateFunction;
-    isSearchActive: Boolean;
-    onClick: any;
-  };
-}) {
-  const { q, navigate, isSearchActive, onClick } = props;
-
-  useEffect(() => {
-    const input = document.getElementById("q") as HTMLInputElement | null;
-    if (input) {
-      input.value = q;
-    }
-  }, [q]);
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const query = (event.currentTarget.q as HTMLInputElement).value.trim();
-    navigate(`?q=${encodeURIComponent(query)}`);
-    const input = document.getElementById("q") as HTMLInputElement;
-    input.blur();
-  };
-
-  return (
-    <>
-      {isSearchActive ? (
-        <>
-          <Form id="search-form" role="search" tabIndex={0} onSubmit={onSubmit}>
-            <label htmlFor="q">search:&nbsp;</label>
-            <input
-              type="search"
-              id="q"
-              name="q"
-              aria-label="Search recipe"
-              defaultValue={q}
-              autoFocus
-            />
-            <button type="button" onClick={onClick}>
-              X
-            </button>
-          </Form>
-        </>
-      ) : (
-        <button type="button" onClick={onClick}>
-          search
-        </button>
-      )}
-    </>
-  );
-}
-
 function TerminalHeader({ style }: { style?: React.CSSProperties }) {
   return (
     <div className="terminal-header" style={style ?? {}}>
@@ -175,52 +118,5 @@ function TerminalHeader({ style }: { style?: React.CSSProperties }) {
       <p>time</p>
       <p>cpus</p>
     </div>
-  );
-}
-
-function TagItem({
-  tag,
-  style,
-  isSelected,
-  onClick,
-}: {
-  tag: string;
-  style?: React.CSSProperties;
-  isSelected: boolean;
-  onClick?: (text: string) => void;
-}) {
-  return (
-    <button
-      className="tag"
-      style={style ?? {}}
-      onClick={() => {
-        onClick?.(tag);
-      }}
-    >
-      {isSelected ? `[${tag}]` : tag}
-    </button>
-  );
-}
-
-function RecipeItem({ recipe, style, onClick }: RecipeItemProps) {
-  const { title, cpus, user, time } = recipe;
-  return (
-    <>
-      <div
-        role="button"
-        tabIndex={0}
-        className="recipe-item"
-        style={style ?? {}}
-        onClick={(event) => {
-          event.stopPropagation();
-          onClick?.(title);
-        }}
-      >
-        <p>{title}</p>
-        <p>{user}</p>
-        <p>{time}</p>
-        <p>{cpus}</p>
-      </div>
-    </>
   );
 }
