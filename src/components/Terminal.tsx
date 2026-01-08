@@ -6,7 +6,7 @@ import {
   Form,
   type NavigateFunction,
 } from "react-router";
-import { fetchAllRecipes, fetchRecipes, fetchTags } from "../api/recipe";
+import { fetchRecipesData } from "../api/recipe";
 import type { RecipeMetaData } from "../types.ts";
 import { deslugify, slugify } from "../utils/utils.ts";
 import { useEffect, useState } from "react";
@@ -21,11 +21,8 @@ export async function loader({ params, request }: any): Promise<{
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
 
-  const tags: string[] = await fetchTags();
-  const recipes: RecipeMetaData[] =
-    selectedTag === "all"
-      ? await fetchAllRecipes()
-      : await fetchRecipes(selectedTag);
+  const { recipes, tags }: { recipes: RecipeMetaData[]; tags: string[] } =
+    await fetchRecipesData(q, selectedTag);
 
   return { selectedTag, tags, recipes, q };
 }

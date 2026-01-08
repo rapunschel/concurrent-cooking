@@ -2,10 +2,7 @@ export async function fetchTags() {
   const tags: string[] = ["all"].concat(
     Array.from(
       new Set(
-        testData.reduce(
-          (tags: string[], recipe) => tags.concat(recipe.tags),
-          []
-        )
+        data.reduce((tags: string[], recipe) => tags.concat(recipe.tags), [])
       )
     )
   );
@@ -13,15 +10,29 @@ export async function fetchTags() {
   return tags;
 }
 
-export async function fetchRecipes(tag: string) {
-  return testData.filter((recipe) => recipe.tags.includes(tag));
+export async function fetchRecipesData(
+  query: string | null,
+  tag: string | null
+) {
+  if (!tag || tag === "") tag = "all";
+  const tags = await fetchTags();
+  const recipesData =
+    tag === "all" ? data : data.filter((recipe) => recipe.tags.includes(tag));
+
+  const recipes = recipesData.filter((recipe) => {
+    if (!query) return true;
+    query = query.toLowerCase();
+    return (
+      recipe.title.toLowerCase().includes(query) ||
+      recipe.user.toLowerCase().includes(query) ||
+      recipe.cpus.toString().toLowerCase().includes(query) ||
+      recipe.time.toString().toLowerCase().includes(query)
+    );
+  });
+  return { tags, recipes };
 }
 
-export async function fetchAllRecipes() {
-  return testData;
-}
-
-const testData = [
+const data = [
   {
     title: "Red beet soup",
     tags: ["vegetarian", "vegan"],
