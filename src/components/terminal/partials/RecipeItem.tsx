@@ -28,7 +28,14 @@ export function RecipeItem({
         }}
       >
         <p>{title}</p>
-        <p>{user}</p>
+        <p>
+          <a
+            href={`https://github.com/${user}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {user}
+          </a>
+        </p>
         <p>{time}</p>
         <p>{cpus}</p>
       </div>

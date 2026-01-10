@@ -4,6 +4,7 @@
   --terminal-height: 44px;
   --taglist-height: 15vh;
   --terminal-cmds-height: 60px;
+  --link-color: #ffcb59;
 }
 
 * {
@@ -141,6 +142,11 @@ button {
   .recipe-item:hover {
     background-color: rgb(3, 77, 8);
   }
+}
+
+.recipe-item a {
+  color: var(--link-color);
+  text-decoration-line: none;
 }
 
 .home button {
