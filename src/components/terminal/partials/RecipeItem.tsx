@@ -11,8 +11,8 @@ export function RecipeItem({
 }) {
   const { title, cpus, user, time } = recipe;
   const navigate = useNavigate();
-  const handleOnRecipeClick = (title: string) => {
-    navigate(`/recipes/${slugify(title)}`);
+  const handleOnRecipeClick = (title: string, user: string) => {
+    navigate(`/recipes/${user}/${slugify(title)}`);
   };
 
   return (
@@ -24,7 +24,7 @@ export function RecipeItem({
         style={style ?? {}}
         onClick={(event) => {
           event.stopPropagation();
-          handleOnRecipeClick(title);
+          handleOnRecipeClick(title, user);
         }}
       >
         <p>{title}</p>

@@ -29,7 +29,7 @@ const router = createHashRouter([
   },
 
   {
-    path: "recipes/:recipeId",
+    path: "recipes/:user/:recipeId",
     element: <Recipe />,
     loader: recipeLoader,
   },
