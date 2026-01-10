@@ -1,21 +1,20 @@
 import type React from "react";
-import { Form, type NavigateFunction } from "react-router";
-
+import { Form } from "react-router";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router";
 export function SearchCommand({
   props,
 }: {
   props: {
     q: string;
-    navigate: NavigateFunction;
     isSearchActive: boolean;
     setSearchActive: any;
   };
 }) {
-  const { q, navigate, isSearchActive, setSearchActive } = props;
+  const { q, isSearchActive, setSearchActive } = props;
   const [closedByUser, setClosedByUser] = useState(false);
   const showSearch = !closedByUser && (isSearchActive || Boolean(q));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const input = document.getElementById("q") as HTMLInputElement | null;

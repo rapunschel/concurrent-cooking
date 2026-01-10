@@ -13,11 +13,11 @@ export async function loader({ params, request }: any): Promise<{
   selectedTag: string;
   tags: string[];
   recipes: RecipeMetaData[];
-  q: string | null;
+  q: string;
 }> {
   let selectedTag: string = params.tagId ? deslugify(params.tagId) : "all";
   const url = new URL(request.url);
-  const q = url.searchParams.get("q");
+  const q = url.searchParams.get("q") ?? "";
 
   const { recipes, tags }: { recipes: RecipeMetaData[]; tags: string[] } =
     await fetchRecipesData(q, selectedTag);
@@ -35,7 +35,7 @@ export default function Terminal() {
     selectedTag: string;
     tags: string[];
     recipes: RecipeMetaData[];
-    q: string | null;
+    q: string;
   } = useLoaderData();
 
   const [isSearchActive, setSearchActive] = useState(Boolean(q));
@@ -84,8 +84,7 @@ export default function Terminal() {
         <div className="terminal-cmds">
           <SearchCommand
             props={{
-              q: q ?? "",
-              navigate,
+              q: q,
               isSearchActive,
               setSearchActive,
             }}
