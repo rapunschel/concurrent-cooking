@@ -25,12 +25,6 @@ export async function loader({ params, request }: any): Promise<{
   return { selectedTag, tags, recipes, q };
 }
 
-export type RecipeItemProps = {
-  recipe: RecipeMetaData;
-  style?: React.CSSProperties;
-  onClick?: (text: string) => void;
-};
-
 export default function Terminal() {
   const {
     selectedTag,
@@ -55,11 +49,6 @@ export default function Terminal() {
     });
     if (setSearchActive) setSearchActive(false);
   };
-
-  const handleOnRecipeClick = (title: string) => {
-    navigate(`/recipes/${slugify(title)}`);
-  };
-
   return (
     <>
       <div className="header">
@@ -87,13 +76,7 @@ export default function Terminal() {
       <div className="terminal-content">
         <div className="recipe-container">
           {recipes.map((recipe, index) => {
-            return (
-              <RecipeItem
-                key={index}
-                recipe={recipe}
-                onClick={handleOnRecipeClick}
-              />
-            );
+            return <RecipeItem key={index} recipe={recipe} />;
           })}
         </div>
       </div>
