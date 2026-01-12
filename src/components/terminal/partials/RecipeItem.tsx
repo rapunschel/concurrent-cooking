@@ -1,6 +1,7 @@
 import { slugify } from "../../../utils/utils.ts";
 import type { RecipeMetaData } from "../../../types.ts";
 import { useNavigate } from "react-router";
+import { User } from "../User.tsx";
 
 export function RecipeItem({
   recipe,
@@ -28,14 +29,7 @@ export function RecipeItem({
         }}
       >
         <p>{title}</p>
-        <p>
-          <a
-            href={`https://github.com/${user}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {user}
-          </a>
-        </p>
+        <User user={user} />
         <p>{time}</p>
         <p>{cpus}</p>
       </div>
