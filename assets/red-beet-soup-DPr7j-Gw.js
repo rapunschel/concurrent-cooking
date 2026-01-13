@@ -3,12 +3,13 @@ title: Red beet soup
 user: harisont
 tags: vegetarian, vegan
 threads: 2
-time: 60 # minutes
+time: 60
 ---
 
 This soup is kinda good, but mostly you make it because of its cool color.
 
 ## Ingredients
+
 - red beets
 - potatoes
 - vegetable broth
@@ -19,13 +20,16 @@ This soup is kinda good, but mostly you make it because of its cool color.
 - pepper
 
 ### Optional
+
 - unsweetened yogurt or sour cream
 - cheese to grate
 
 ## Equipment
+
 - hand blender
 
 ## Steps
+
 - chop the onion finely and sauté it in some oil inside a tall pot
 - dice the red beets and the potatoes
 
@@ -36,4 +40,5 @@ This soup is kinda good, but mostly you make it because of its cool color.
 - grate a generous amount of cheese
 
 - turn off the stove and blend everything together
-- season with salt, pepper and optionally some extra oil and a bit of yogurt or sour cream`;export{e as default};
+- season with salt, pepper and optionally some extra oil and a bit of yogurt or sour cream
+`;export{e as default};
