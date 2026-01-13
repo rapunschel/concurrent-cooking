@@ -8,6 +8,7 @@ import { useState } from "react";
 import { TagItem } from "./partials/TagItem.tsx";
 import { SearchCommand } from "./partials/SearchCommand.tsx";
 import { RecipeItem } from "./partials/RecipeItem.tsx";
+import { NavBar } from "../NavBar.tsx";
 
 export async function loader({ params, request }: any): Promise<{
   selectedTag: string;
@@ -44,7 +45,7 @@ export default function Terminal() {
   const navigate = useNavigate();
 
   const handleOnTagClick = (tag: string) => {
-    navigate(`/${slugify(tag)}`, {
+    navigate(`../${slugify(tag)}`, {
       replace: false,
     });
     if (setSearchActive) setSearchActive(false);
@@ -52,6 +53,7 @@ export default function Terminal() {
   return (
     <>
       <div className="header">
+        <NavBar />
         <div className="tag-list">
           {tags.map((tag: string) => {
             return (
