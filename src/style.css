@@ -1,11 +1,62 @@
 :root {
   --primary-color: black;
+  --terminal-min-width: 300px;
+  --terminal-height: 44px;
+  --taglist-height: 15vh;
+  --terminal-cmds-height: 60px;
+  --link-color: #ffcb59;
 }
 
 * {
-  background-color: var(--primary-color);
   font-family: "Lucida Console", "Courier New", monospace;
   color: rgb(201, 201, 201);
+  box-sizing: border-box;
+}
+
+/* Grid stuff wow*/
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.home {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}
+
+.header {
+  grid-row: 1;
+}
+
+.terminal-content {
+  position: relative;
+  grid-row: 2;
+  overflow-y: auto;
+}
+
+.terminal-header,
+.recipe-container {
+  width: 100vw;
+}
+
+.recipe-container {
+  position: absolute;
+}
+
+.footer {
+  grid-row: 3;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
 }
 
 .home * {
@@ -13,57 +64,172 @@
   margin: 0;
 }
 
-@media (min-width: 0px) {
+/*Small phones */
+@media (width < 400px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+  .recipe-item {
+    min-height: 48px;
+  }
+  .tag {
+    min-height: 48px;
+    min-width: 48px;
+  }
 
-  .category-list>p,
-  .metadata>p,
-  .recipe-item>p {
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    min-width: var(--terminal-min-width);
+    overflow-x: auto;
+    grid-template-columns: 2fr 1.4fr 1fr 1fr;
+  }
+}
+
+/* large phones */
+@media (width <= 480px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
-  .recipe-item,
-  .metadata {
-    display: grid;
-    grid-gap: clamp(4px, 8px, 12px);
-    grid-template-columns: 1fr 0.5fr 0.3fr 1fr 0.3fr;
-  }
-}
-
-@media (min-width: 700px) {
-
-  .category-list>p,
-  .metadata>p,
-  .recipe-item>p {
-    font-size: 1.2rem;
+  .tag {
+    min-height: 40px;
+    min-width: 40px;
   }
 
   .recipe-item,
-  .metadata {
+  .terminal-header {
     display: grid;
-    grid-template-columns: 2fr 1fr 0.5fr 1fr 0.3fr;
+    grid-template-columns: 3fr 2fr 1fr 1fr;
   }
 }
 
-.metadata {
-  background-color: rgb(160, 255, 119);
+/* tablets*/
+@media (width <= 1280px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+
+  .recipe-item {
+    min-height: 40px;
+  }
+
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr 1fr;
+  }
 }
 
-.metadata p {
-  color: black;
-  font-weight: 900;
-  background-color: rgb(160, 255, 119);
+@media (width > 1280px) {
+  .tag,
+  .terminal-header > p,
+  .recipe-item > p {
+    font-size: 1rem;
+  }
+  .recipe-item,
+  .terminal-header {
+    display: grid;
+    grid-template-columns: 4fr 2fr 1fr 1fr;
+  }
+
+  .recipe-item:hover {
+    background-color: rgb(3, 77, 8);
+  }
 }
 
-.category-list {
+.recipe-item a {
+  color: var(--link-color);
+  text-decoration-line: none;
+}
+
+.home button {
+  text-decoration: none;
+}
+
+.home button {
+  font-size: 1rem;
+  background-color: transparent;
+}
+
+#search-form {
   display: flex;
-  gap: 1em;
+  flex-direction: row;
+  border: 1px solid green;
 }
 
-.category-list p {
+#search-form,
+#search-form:focus-within {
+  border-radius: 50vw;
+  padding: 4px 8px;
+}
+
+#search-form:focus-within {
+  border: 2px solid rgb(6, 233, 6);
+}
+#search-form input:focus {
+  outline: none;
+  box-shadow: none;
+}
+#search-form input {
+  display: flex;
+  min-width: 65vw;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  box-shadow: none;
+}
+.terminal-cmds {
+  display: flex;
+  justify-content: safe center;
+  align-items: safe center;
+  min-width: var(--terminal-min-width);
+  border-top: solid 1px grey;
+  gap: 8px;
+  padding: 4px;
+  height: 60px;
+  background: var(--primary-color);
+}
+
+.terminal-header {
+  max-height: 25px;
+}
+
+.terminal-header p {
   color: black;
   font-weight: 900;
 }
 
+.terminal-header p,
+.recipe-item p {
+  padding: 0.25em 0.3em;
+}
+
+.tag-list {
+  display: flex;
+  min-width: var(--terminal-min-width);
+  background-color: var(--primary-color);
+  max-height: var(--taglist-height);
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: antiquewhite;
+  color: black;
+  font-weight: 900;
+  text-decoration: none;
+  padding: 4px;
+}
+
+/* recipe */
 .verbose {
   display: none;
 }
