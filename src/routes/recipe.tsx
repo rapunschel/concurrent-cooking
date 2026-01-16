@@ -1,12 +1,12 @@
 import { useLoaderData } from "react-router";
 import parse from "html-react-parser";
-import { getMarkdownMetadata } from "ts-markdown-parser";
 import { parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
 import type { ReactElement } from "react";
+import { fetchRecipe } from "../data/fetchRecipe";
+import type { RecipeData } from "../types.ts";
 
-export async function loader({ params }: any) {
-  const txt = (await import(`../recipes/${params.recipeId}.md?raw`)).default;
-  return { txt };
+export function loader({ params }: any): RecipeData {
+  return fetchRecipe(params.user, params.recipeId);
 }
 
 function CPUs(max: number, available: number = 1): ReactElement {
@@ -15,7 +15,9 @@ function CPUs(max: number, available: number = 1): ReactElement {
     const id = `cpu${i + 1}`;
     const classes = "cpu" + (i < available ? " available" : "");
     cpus.push(
-      <span className={classes} id={id}>▮</span>
+      <span className={classes} id={id}>
+        ▮
+      </span>
     );
   }
   return (
@@ -28,11 +30,7 @@ function CPUs(max: number, available: number = 1): ReactElement {
 function Head(fm: Record<string, any>): ReactElement {
   const title = fm.title;
   const user = fm.user;
-  const tags = fm.tags
-    .replace(" ", "")
-    .split(",")
-    .map((tag: string): string => "#" + tag)
-    .join(" ");
+  const tags = fm.tags.map((tag: string): string => "#" + tag).join(" ");
   const threads = fm.threads;
   const tot_time = fm.time;
   const hours = tot_time / 60;
@@ -44,10 +42,19 @@ function Head(fm: Record<string, any>): ReactElement {
       <h1>{title}</h1>
       <div id="header">
         <ul className="meta">
-          <li><span className="key">tags:</span> {tags}</li>
-          <li><span className="key">user:</span> {user}</li>
-          <li><span className="key">time:</span> {time}</li>
-          <li><span className="key">threads:</span> {threads} <span className="key">CPUs:</span> {CPUs(threads)}</li>
+          <li>
+            <span className="key">tags:</span> {tags}
+          </li>
+          <li>
+            <span className="key">user:</span> {user}
+          </li>
+          <li>
+            <span className="key">time:</span> {time}
+          </li>
+          <li>
+            <span className="key">threads:</span> {threads}{" "}
+            <span className="key">CPUs:</span> {CPUs(threads)}
+          </li>
         </ul>
         <button>--verbose</button>
       </div>
@@ -75,7 +82,11 @@ function Step(
   );
 }
 
-function Tag(content: string, type: string, className: string = ""): ReactElement {
+function Tag(
+  content: string,
+  type: string,
+  className: string = ""
+): ReactElement {
   return <>{parse(`<${type} class='${className}'>${content}</${type}>`)}</>;
 }
 
@@ -99,10 +110,9 @@ function Body(md: Record<string, any>): ReactElement {
 }
 
 export default function Recipe(): ReactElement {
-  const { txt } = useLoaderData();
-
-  const meta = Head(getMarkdownMetadata(txt));
-  const body = Body(parseMarkdown(txt));
+  const { metadata, recipe }: RecipeData = useLoaderData();
+  const meta = Head(metadata);
+  const body = Body(parseMarkdown(recipe));
 
   return (
     <div className="recipe">
