@@ -13,7 +13,7 @@ import { NavBar } from "./components/NavBar.js";
 
 const router = createHashRouter([
   {
-    path: "/",
+    path: "/intro",
     element: (
       <div>
         <NavBar />
@@ -22,13 +22,17 @@ const router = createHashRouter([
     ),
   },
   {
-    path: "/introduction",
+    path: "/docs",
     element: (
       <div>
         <NavBar />
-        <h1>Intro</h1>
+        <h1>Docs</h1>
       </div>
     ),
+  },
+  {
+    path: "/",
+    element: <Navigate to="/terminal" replace />,
   },
   {
     path: "/terminal",
