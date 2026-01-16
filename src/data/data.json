@@ -1,0 +1,32 @@
+{
+  "harisont": {
+    "red-beet-soup": {
+      "metadata": {
+        "title": "Red beet soup",
+        "tags": [
+          "vegetarian",
+          "vegan"
+        ],
+        "threads": 2,
+        "time": 60,
+        "user": "harisont"
+      },
+      "recipe": "---\ntitle: Red beet soup\ntags: vegetarian, vegan\nthreads: 2\ntime: 60\n---\n\nThis soup is kinda good, but mostly you make it because of its cool color.\n\n## Ingredients\n- red beets\n- potatoes\n- vegetable broth\n- onion(s)\n- bay leaves\n- (olive) oil\n- salt\n- pepper\n\n### Optional\n- unsweetened yogurt or sour cream\n- cheese to grate\n\n## Equipment\n- hand blender\n\n## Steps\n- chop the onion finely and sauté it in some oil inside a tall pot\n- dice the red beets and the potatoes\n\n- add the vegetables to the pot and stir for about 5 minutes\n- warm the broth up\n\n- pour the broth into the pot and bring it to a boil. Let everything cook for at least 15-20 minutes, until both the beets and the potatoes are soft\n- grate a generous amount of cheese\n\n- turn off the stove and blend everything together\n- season with salt, pepper and optionally some extra oil and a bit of yogurt or sour cream\n"
+    }
+  },
+  "rapunschel": {
+    "punsch-ice-cream": {
+      "metadata": {
+        "title": "Punsch ice cream",
+        "tags": [
+          "dessert",
+          "vegetarian"
+        ],
+        "threads": 2,
+        "time": 20,
+        "user": "rapunschel"
+      },
+      "recipe": "---\ntitle: Punsch ice cream\ntags: dessert, vegetarian\nthreads: 2\ntime: 20\n---\n\nNote: If you prefer a softer & sweeter ice cream, then use more punsch (liquor) or sugar respectively. If you prefer it more icy and firmer then use less alcohol and sugar. I highly dont recommend going above 1.5 dl liquor as it'll feel like ice cream shots.\n\n## Ingredients\n\n- 5-6 eggs\n- 0.5-1.5 dl Punsch (liquor)\n- 1-3 dl sugar\n- 5-6 dl whipping cream\n\n### Optional\n\n- Chocolate\n\n## Equipment\n\n- Electric whisk or anything that whips the cream\n\n## Steps\n\n- Crack the eggs in a bowl and put the sugar in. Whisk it to a smooth texture then add the liquor and mix\n- Turn the whipping cream into whipped cream\n- Cut the chocolate into tiny pieces\n\n- Mix everything together, optionally save some chocolate to add as sprinkles on top.\n\n- Pour into containers and freeze for minimum 8 hours\n"
+    }
+  }
+}
