@@ -1,6 +1,8 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
+import { getMarkdownMetadata } from "ts-markdown-parser";
+import { slugify } from "../src/utils/utils.ts";
 
 type ApprovedUsers = {
   users: string[];
@@ -8,48 +10,59 @@ type ApprovedUsers = {
 const getRepoContents = (user: string) => {
   return `https://api.github.com/repos/${user}/concurrent-recipes/contents`;
 };
-const main = async (user: string) => {
-  try {
-    const filePath = path.resolve("public", "approved_users.yml");
-    const writeToPath = `public/recipes/${user}.json`;
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    const users = (yaml.load(fileContents) as ApprovedUsers).users;
 
-    if (!users.includes(user)) {
-      console.log("User not approved");
-      return;
-    }
+const main = async () => {
+  const filePath = path.resolve("public", "approved_users.yml");
+  const fileContents = fs.readFileSync(filePath, "utf8");
+  const users = (yaml.load(fileContents) as ApprovedUsers).users;
 
-    const res = await fetch(getRepoContents(user), {
-      headers: { Accept: "application/vnd.github+json" },
-    });
+  let data = {} as Record<string, any>;
 
-    if (!res.ok) {
-      console.log(`Failed to fetch repo data for user: ${user}`);
-      return;
-    }
+  for (const user of users) {
+    try {
+      const res = await fetch(getRepoContents(user), {
+        headers: { Accept: "application/vnd.github+json" },
+      });
 
-    const dataJson = await res.json();
-    const recipes = await Promise.all(
-      dataJson.map(async (obj: any) => {
-        const res = await fetch(obj.download_url);
+      if (!res.ok) {
+        console.log(`Failed to fetch repo data for user: ${user}`);
+        continue;
+      }
+
+      const repoFiles = await res.json();
+      let recipes = {} as Record<string, any>;
+
+      for (const file of repoFiles) {
+        const res = await fetch(file.download_url);
         if (!res.ok) {
           console.log(
-            `Failed to fetch from user ${user} url: ${obj.download_url}`
+            `Failed to fetch recipe from user ${user} url: ${file.download_url}`
           );
-        } else if (!(obj.path === "recipe-template.md")) {
-          return await res.text();
-        }
-      })
-    );
+        } else if (
+          !(file.path === "recipe-template.md" || file.path === "README.md")
+        ) {
+          const content = await res.text();
+          const metadata = getMarkdownMetadata(content);
+          metadata.user = user;
+          metadata.tags = metadata.tags.replace(" ", "").split(",");
 
-    const data = { [user]: recipes.filter(Boolean) };
-    fs.writeFileSync(writeToPath, JSON.stringify(data, null, 2), "utf-8");
-  } catch (e) {
-    console.log(e);
+          recipes[slugify(metadata.title)] = {
+            metadata: metadata,
+            recipe: content,
+          } as Record<string, any>;
+        }
+      }
+      data[user] = recipes;
+    } catch (e) {
+      console.log(e);
+    }
   }
+
+  fs.writeFileSync(
+    `src/data/data.json`,
+    JSON.stringify(data, null, 2),
+    "utf-8"
+  );
 };
 
-const args = process.argv.slice(2);
-
-await main(args[0]);
+await main();
