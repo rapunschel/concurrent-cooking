@@ -7,7 +7,7 @@ export type RecipeLoaderType = {
 export type RecipeMetaData = {
   title: string;
   tags: string[];
-  cpus: number;
+  threads: number;
   user: string;
   time: number;
 };
