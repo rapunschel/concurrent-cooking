@@ -1,5 +1,5 @@
 import data from "./data.json" with  { type: "json" };
-import type { RecipeMetaData } from "../types.ts";
+import type { RecipeMetaData, RecipeData } from "../types.ts";
 
 function getMetaData() {
   let tags : string[] = ["all"];
@@ -40,4 +40,16 @@ export  function fetchRecipesData(
   });
 
   return { tags, recipes };
+}
+
+export function fetchRecipe(user : string, recipeId : string) : RecipeData {
+  const recipes = data as Record<string, any>;
+  const userData = recipes[user];
+  if (!userData) throw new Error(`No data found for: ${user}`)
+
+  const recipe : RecipeData |null = userData[recipeId];
+
+  if (!recipe) throw new Error(`Could not find recipe: ${recipeId}`);
+
+  return recipe;
 }
