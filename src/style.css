@@ -228,7 +228,12 @@ nav a.active::after {
 }
 
 .terminal-header {
-  max-height: 25px;
+  max-height: 48px;
+}
+
+p {
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .terminal-header p {

@@ -1,7 +1,7 @@
 import type React from "react";
 import generateColor from "../../utils/generateColor.ts";
 import { useLoaderData, useNavigate } from "react-router";
-import { fetchRecipesData } from "../../api/recipe.ts";
+import { fetchRecipesData } from "../../data/fetchRecipe.ts";
 import type { RecipeMetaData } from "../../types.ts";
 import { deslugify, slugify } from "../../utils/utils.ts";
 import { useState } from "react";
