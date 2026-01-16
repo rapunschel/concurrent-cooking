@@ -11,3 +11,8 @@ export type RecipeMetaData = {
   user: string;
   time: number;
 };
+
+export type RecipeData = {
+  metadata: RecipeMetaData;
+  recipe: string;
+};
