@@ -10,7 +10,7 @@ export function RecipeItem({
   recipe: RecipeMetaData;
   style?: React.CSSProperties;
 }) {
-  const { title, cpus, user, time } = recipe;
+  const { title, threads, user, time } = recipe;
   const navigate = useNavigate();
   const handleOnRecipeClick = (title: string, user: string) => {
     navigate(`../recipes/${user}/${slugify(title)}`);
@@ -31,7 +31,7 @@ export function RecipeItem({
         <p>{title}</p>
         <User user={user} />
         <p>{time}</p>
-        <p>{cpus}</p>
+        <p>{threads}</p>
       </div>
     </>
   );

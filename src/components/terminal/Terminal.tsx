@@ -10,18 +10,18 @@ import { SearchCommand } from "./partials/SearchCommand.tsx";
 import { RecipeItem } from "./partials/RecipeItem.tsx";
 import { NavBar } from "../NavBar.tsx";
 
-export async function loader({ params, request }: any): Promise<{
+export function loader({ params, request }: any): {
   selectedTag: string;
   tags: string[];
   recipes: RecipeMetaData[];
   q: string;
-}> {
+} {
   let selectedTag: string = params.tagId ? deslugify(params.tagId) : "all";
   const url = new URL(request.url);
   const q = url.searchParams.get("q") ?? "";
 
   const { recipes, tags }: { recipes: RecipeMetaData[]; tags: string[] } =
-    await fetchRecipesData(q, selectedTag);
+    fetchRecipesData(q, selectedTag);
 
   return { selectedTag, tags, recipes, q };
 }
