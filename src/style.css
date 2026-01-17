@@ -304,13 +304,7 @@ p {
   content: "### ";
 }
 
-ul,
-ol {
-  padding-left: 1em;
-}
-
 li {
-  list-style-type: none;
   padding: 0;
   margin: 0;
 }
@@ -332,10 +326,6 @@ button {
   cursor: pointer;
 }
 
-li::before {
-  content: "* ";
-}
-
 .step li::before {
   content: "";
 }
@@ -344,12 +334,16 @@ li::before {
   content: "";
 }
 
-ul.step::before {
-  content: "* ";
+.step li {
+  padding-left: 1em;
 }
 
-.step li {
-  list-style-type: none;
+ol li {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+li ul {
   padding-left: 1em;
 }
 
