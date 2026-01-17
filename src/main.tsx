@@ -52,7 +52,7 @@ const router = createHashRouter([
   },
 
   {
-    path: "terminal/recipes/:user/:recipeId",
+    path: "/terminal/recipes/:user/:recipeId",
     element: <Recipe />,
     loader: recipeLoader,
   },
