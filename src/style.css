@@ -304,11 +304,6 @@ p {
   content: "### ";
 }
 
-li {
-  padding: 0;
-  margin: 0;
-}
-
 .meta {
   padding: 0;
   margin: 0;
@@ -326,27 +321,57 @@ button {
   cursor: pointer;
 }
 
-.step li::before {
-  content: "";
-}
-
 .meta li::before {
   content: "";
 }
 
-.step li {
-  padding-left: 1em;
-}
-
-ol li {
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
-}
-
-li ul {
-  padding-left: 1em;
-}
-
 .cpu {
   font-weight: bolder;
+}
+
+/*tree-like lists*/
+
+ul.step {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  position: relative;
+}
+
+ul ul {
+  padding-left: 1.5em;
+  padding-bottom: 2em;
+}
+
+li.step {
+  list-style-type: none;
+  border-left: 2px solid white;
+  margin-left: 1.5em;
+  padding: 0;
+}
+
+li div {
+  padding-left: 2em;
+  position: relative;
+}
+
+li div::before {
+  content: '';
+  position: absolute;
+  top: -1000%;
+  /*increased madly to prevent gaps on long lines*/
+  left: -2px;
+  bottom: 50%;
+  width: 1.5em;
+  border: 2px solid white;
+  border-top: 0 none transparent;
+  border-right: 0 none transparent;
+}
+
+ul.step li {
+  list-style-type: none;
+}
+
+ul.step>li:last-child {
+  border-left: 2px solid transparent;
 }

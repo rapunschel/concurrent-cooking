@@ -66,22 +66,12 @@ function Head(fm: Record<string, any>, onclick: any): ReactElement {
 
 function Step(
   lis: string,
-  parallel: boolean = false,
   threads: number = 1
 ): ReactElement {
-  return (
-    <><li>
-      <ul
-        className={parallel ? "step parallel" : "step"}
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${threads}, 1fr)`,
-        }}
-      >
-        {parse(lis)}
-      </ul>
-    </li></>
-  );
+  // string manipulation because apparently there is no way to get the children of a react el obtained with parse(html)...
+  const html = (lis.replaceAll("<li>", "<li><div>").replaceAll("</li>", "</div></li>"));
+  const n = (html.match(/\<li\>/g) || []).length
+  return n > 1 ? (<><li><div></div></li><ul>{parse(html)}</ul></>) : (<>{parse(html)}</>);
 }
 
 function Tag(
@@ -100,18 +90,18 @@ function Body(md: Record<string, any>, isVerbose: boolean): ReactElement {
     const content = el.content;
     const type = el.type;
     if (i + 1 == md.length) {
-      contents.push(<ol>{steps}</ol>);
+      contents.push(<ul className="step">{steps}</ul>);
     }
     if (!(type == "img")) {
       if (type == "h2") {
         if (currSection == "Steps") {
-          contents.push(<ol>{steps}</ol>);
+          contents.push(<ul className="step"><li></li>{steps}</ul>);
           steps = [];
         }
         currSection = content;
       }
       if (currSection == "Steps" && type == "ul") {
-        steps.push(Step(content, true));
+        steps.push(Step(content));
       } else {
         if (!(type == "p" && !isVerbose)) {
           contents.push(Tag(content, type));
