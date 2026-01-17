@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router";
 import parse from "html-react-parser";
 import { parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";
 import { inflectNumber } from "../utils/utils.ts";
@@ -28,7 +28,7 @@ function CPUs(max: number, available: number = 1): ReactElement {
   );
 }
 
-function Head(fm: Record<string, any>): ReactElement {
+function Head(fm: Record<string, any>, onclick: any): ReactElement {
   const title = fm.title;
   const user = fm.user;
   const tags = fm.tags.map((tag: string): string => "#" + tag).join(" ");
@@ -58,7 +58,7 @@ function Head(fm: Record<string, any>): ReactElement {
             <span className="key">CPUs:</span> {CPUs(threads)}
           </li>
         </ul>
-        <button>--verbose</button>
+        <button onClick={onclick}>--verbose</button>
       </div>
     </>
   );
@@ -89,10 +89,10 @@ function Tag(
   type: string,
   className: string = ""
 ): ReactElement {
-  return <>{parse(`< ${type} class='${className}' > ${content}</${type}> `)}</>;
+  return <>{parse(`<${type} class='${className}'> ${content}</${type}> `)}</>;
 }
 
-function Body(md: Record<string, any>): ReactElement {
+function Body(md: Record<string, any>, isVerbose: boolean): ReactElement {
   let currSection = undefined;
   let contents: ReactElement[] = [];
   for (const el in md) {
@@ -105,7 +105,9 @@ function Body(md: Record<string, any>): ReactElement {
     if (currSection == "Steps" && type == "ul") {
       contents.push(Step(content, true));
     } else {
-      contents.push(Tag(content, type, type == "p" ? "verbose" : ""));
+      if (!(type == "p" && !isVerbose)) {
+        contents.push(Tag(content, type));
+      }
     }
   }
   return <>{contents}</>;
@@ -113,8 +115,9 @@ function Body(md: Record<string, any>): ReactElement {
 
 export default function Recipe(): ReactElement {
   const { metadata, recipe }: RecipeData = useLoaderData();
-  const meta = Head(metadata);
-  const body = Body(parseMarkdown(recipe));
+  const [isVerbose, setVerbose] = useState(false);
+  const meta = Head(metadata, () => { setVerbose(!isVerbose) });
+  const body = Body(parseMarkdown(recipe), isVerbose);
 
   return (
     <div className="recipe">

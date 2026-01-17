@@ -95,14 +95,17 @@ nav a.active::after {
 
 /*Small phones */
 @media (width < 400px) {
+
   .tag,
-  .terminal-header > p,
-  .recipe-item > p {
+  .terminal-header>p,
+  .recipe-item>p {
     font-size: 1rem;
   }
+
   .recipe-item {
     min-height: 48px;
   }
+
   .tag {
     min-height: 48px;
     min-width: 48px;
@@ -118,10 +121,11 @@ nav a.active::after {
 }
 
 /* large phones */
-@media (width <= 480px) {
+@media (width <=480px) {
+
   .tag,
-  .terminal-header > p,
-  .recipe-item > p {
+  .terminal-header>p,
+  .recipe-item>p {
     font-size: 1rem;
   }
 
@@ -138,10 +142,11 @@ nav a.active::after {
 }
 
 /* tablets*/
-@media (width <= 1280px) {
+@media (width <=1280px) {
+
   .tag,
-  .terminal-header > p,
-  .recipe-item > p {
+  .terminal-header>p,
+  .recipe-item>p {
     font-size: 1rem;
   }
 
@@ -157,11 +162,13 @@ nav a.active::after {
 }
 
 @media (width > 1280px) {
+
   .tag,
-  .terminal-header > p,
-  .recipe-item > p {
+  .terminal-header>p,
+  .recipe-item>p {
     font-size: 1rem;
   }
+
   .recipe-item,
   .terminal-header {
     display: grid;
@@ -202,10 +209,12 @@ nav a.active::after {
 #search-form:focus-within {
   border: 2px solid rgb(6, 233, 6);
 }
+
 #search-form input:focus {
   outline: none;
   box-shadow: none;
 }
+
 #search-form input {
   display: flex;
   min-width: 65vw;
@@ -215,6 +224,7 @@ nav a.active::after {
   font-size: 1rem;
   box-shadow: none;
 }
+
 .terminal-cmds {
   display: flex;
   justify-content: safe center;
@@ -264,10 +274,6 @@ p {
 }
 
 /* recipe */
-.verbose {
-  display: none;
-}
-
 .recipe * {
   font-size: 1rem;
   font-style: normal;
