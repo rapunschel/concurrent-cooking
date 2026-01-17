@@ -9,19 +9,42 @@ import Terminal, {
 } from "./components/terminal/Terminal.js";
 
 import "./style.css";
+import { NavBar } from "./components/NavBar.js";
 
 const router = createHashRouter([
   {
+    path: "/intro",
+    element: (
+      <div>
+        <NavBar />
+        <h1>About</h1>
+      </div>
+    ),
+  },
+  {
+    path: "/docs",
+    element: (
+      <div>
+        <NavBar />
+        <h1>Docs</h1>
+      </div>
+    ),
+  },
+  {
     path: "/",
+    element: <Navigate to="/terminal" replace />,
+  },
+  {
+    path: "/terminal",
     element: <Home />,
     children: [
       {
         index: true,
-        element: <Navigate to="/all" replace />,
+        element: <Navigate to="all" replace />,
       },
 
       {
-        path: "/:tagId",
+        path: ":tagId",
         element: <Terminal />,
         loader: terminalLoader,
       },
@@ -29,7 +52,7 @@ const router = createHashRouter([
   },
 
   {
-    path: "recipes/:user/:recipeId",
+    path: "terminal/recipes/:user/:recipeId",
     element: <Recipe />,
     loader: recipeLoader,
   },

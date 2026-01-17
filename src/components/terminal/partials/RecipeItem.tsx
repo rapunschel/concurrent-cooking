@@ -13,7 +13,7 @@ export function RecipeItem({
   const { title, threads, user, time } = recipe;
   const navigate = useNavigate();
   const handleOnRecipeClick = (title: string, user: string) => {
-    navigate(`/recipes/${user}/${slugify(title)}`);
+    navigate(`../recipes/${user}/${slugify(title)}`);
   };
 
   return (

@@ -34,6 +34,7 @@ export  function fetchRecipesData(
     return (
       recipe.title.toLowerCase().includes(query) ||
       recipe.user.toLowerCase().includes(query) ||
+      recipe.tags.includes(query) ||
       recipe.threads.toString().toLowerCase().includes(query) ||
       recipe.time.toString().toLowerCase().includes(query)
     );
