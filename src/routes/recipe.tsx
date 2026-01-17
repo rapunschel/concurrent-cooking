@@ -4,6 +4,7 @@ import { parseMarkdown } from "ts-markdown-parser/utils/markdown-parser.js";
 import type { ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";
+import { inflectNumber } from "../utils/utils.ts";
 
 export function loader({ params }: any): RecipeData {
   return fetchRecipe(params.user, params.recipeId);
@@ -33,10 +34,11 @@ function Head(fm: Record<string, any>): ReactElement {
   const tags = fm.tags.map((tag: string): string => "#" + tag).join(" ");
   const threads = fm.threads;
   const tot_time = fm.time;
-  const hours = tot_time / 60;
+  const hours = Math.floor(tot_time / 60);
   const mins = tot_time % 60;
   const time =
-    (hours > 0 ? `${hours} hours` : "") + (mins > 0 ? `${mins} minutes` : "");
+    (hours > 0 ? `${hours} ${inflectNumber("hour", hours)} ` : "") +
+    (mins > 0 ? `${mins} ${inflectNumber("minute", mins)}` : "");
   return (
     <>
       <h1>{title}</h1>
@@ -73,7 +75,7 @@ function Step(
         className={parallel ? "step parallel" : "step"}
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${threads},1fr)`,
+          gridTemplateColumns: `repeat(${threads}, 1fr)`,
         }}
       >
         {parse(lis)}
@@ -87,7 +89,7 @@ function Tag(
   type: string,
   className: string = ""
 ): ReactElement {
-  return <>{parse(`<${type} class='${className}'>${content}</${type}>`)}</>;
+  return <>{parse(`< ${type} class='${className}' > ${content}</${type}> `)}</>;
 }
 
 function Body(md: Record<string, any>): ReactElement {
