@@ -42,14 +42,18 @@ const main = async () => {
           !(file.path === "recipe-template.md" || file.path === "README.md")
         ) {
           const content = await res.text();
-          const metadata = getMarkdownMetadata(content);
-          metadata.user = user;
-          metadata.tags = metadata.tags.replace(" ", "").split(",");
+          try {
+            const metadata = getMarkdownMetadata(content);
+            metadata.user = user;
+            metadata.tags = metadata.tags.replace(" ", "").split(",");
 
-          recipes[slugify(metadata.title)] = {
-            metadata: metadata,
-            recipe: content,
-          } as Record<string, any>;
+            recipes[slugify(metadata.title)] = {
+              metadata: metadata,
+              recipe: content,
+            } as Record<string, any>;
+          } catch (e) {
+            console.log(`Invalid metadata. Blaming ${user}`);
+          }
         }
       }
       data[user] = recipes;
