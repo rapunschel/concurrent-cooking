@@ -22,11 +22,11 @@
           "dessert",
           "vegetarian"
         ],
-        "threads": 2,
+        "threads": 3,
         "time": 20,
         "user": "rapunschel"
       },
-      "recipe": "---\ntitle: Punsch ice cream\ntags: dessert, vegetarian\nthreads: 2\ntime: 20\n---\n\nNote: If you prefer a softer & sweeter ice cream, then use more punsch (liquor) or sugar respectively. If you prefer it more icy and firmer then use less alcohol and sugar. I highly dont recommend going above 1.5 dl liquor as it'll feel like ice cream shots.\n\n## Ingredients\n\n- 5-6 eggs\n- 0.5-1.5 dl Punsch (liquor)\n- 1-3 dl sugar\n- 5-6 dl whipping cream\n\n### Optional\n\n- Chocolate\n\n## Equipment\n\n- Electric whisk or anything that whips the cream\n\n## Steps\n\n- Crack the eggs in a bowl and put the sugar in. Whisk it to a smooth texture then add the liquor and mix\n- Turn the whipping cream into whipped cream\n- Cut the chocolate into tiny pieces\n\n- Mix everything together, optionally save some chocolate to add as sprinkles on top.\n\n- Pour into containers and freeze for minimum 8 hours\n"
+      "recipe": "---\ntitle: Punsch ice cream\ntags: dessert, vegetarian\nthreads: 3\ntime: 20\n---\n\nNote: If you prefer a softer & sweeter ice cream, then use more punsch (liquor) or sugar respectively. If you prefer it more icy and firmer then use less alcohol and sugar. I highly dont recommend going above 1.5 dl liquor as it'll feel like ice cream shots.\n\n## Ingredients\n\n- 5-6 eggs\n- 0.5-1.5 dl Punsch (liquor)\n- 1-3 dl sugar\n- 5-6 dl whipping cream\n\n### Optional\n\n- Chocolate\n\n## Equipment\n\n- Electric whisk or anything that whips the cream\n\n## Steps\n\n- Crack the eggs in a bowl and put the sugar in. Whisk it to a smooth texture then add the liquor and mix\n- Turn the whipping cream into whipped cream\n- Cut the chocolate into tiny pieces\n\n- Mix everything together, optionally save some chocolate to add as sprinkles on top.\n\n- Pour into containers and freeze for minimum 8 hours\n"
     }
   }
 }
