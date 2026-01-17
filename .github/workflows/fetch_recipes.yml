@@ -1,0 +1,31 @@
+name: run pre-build and deploy on recipe update
+
+on:
+  repository_dispatch:
+    types:
+      - user-update
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: github-api
+
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+          ref: github-api
+
+      - name: install dependencies
+        run: npm install
+
+      - name: run pre-build script
+        run: npx ts-node ./scripts/pre_build.ts ${{ github.event.client_payload.username }}
+
+      - name: run deploy
+        run: npm run deploy

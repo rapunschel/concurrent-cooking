@@ -13,13 +13,16 @@
   },
   "dependencies": {
     "html-react-parser": "^5.2.11",
+    "js-yaml": "^4.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.11.0",
-    "ts-markdown-parser": "^1.5.1"
+    "ts-markdown-parser": "^1.5.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@types/js-yaml": "^4.0.9",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
