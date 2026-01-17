@@ -5,6 +5,7 @@
   --taglist-height: 15vh;
   --terminal-cmds-height: 60px;
   --link-color: #ffcb59;
+  --button-color: rgb(160, 255, 119);
 }
 
 * {
@@ -283,13 +284,8 @@ p {
 .recipe h1,
 .recipe h2,
 .recipe h3 {
-  color: rgb(160, 255, 119);
-  font-weight: lighter;
-}
-
-.recipe h2,
-.recipe h3 {
-  font-weight: lighter;
+  font-weight: bold;
+  color: #DB66FF;
 }
 
 .recipe h1::before {
@@ -320,8 +316,7 @@ li {
 
 button {
   border: none;
-  text-decoration: underline;
-  color: rgb(160, 255, 119);
+  color: var(--button-color);
   padding: 1em 1em 1em 0em;
   cursor: pointer;
 }
@@ -349,4 +344,12 @@ li ul {
 
 .cpu {
   font-weight: bolder;
+}
+
+.user {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  color: var(--link-color);
+  text-decoration: none;
 }

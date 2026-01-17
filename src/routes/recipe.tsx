@@ -5,6 +5,7 @@ import { useState, type ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";
 import { inflectNumber } from "../utils/utils.ts";
+import { User } from "../components/terminal/User.tsx";
 
 export function loader({ params }: any): RecipeData {
   return fetchRecipe(params.user, params.recipeId);
@@ -48,7 +49,7 @@ function Head(fm: Record<string, any>, onclick: any): ReactElement {
             <span className="key">tags:</span> {tags}
           </li>
           <li>
-            <span className="key">user:</span> {user}
+            <span className="key">user:</span> <User user={user} />
           </li>
           <li>
             <span className="key">time:</span> {time}
