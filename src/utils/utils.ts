@@ -5,3 +5,7 @@ export const deslugify = (text: string): string => {
 export const slugify = (text: string): string => {
   return text.trim().toLocaleLowerCase().replace(/\s+/g, "-");
 };
+
+export const inflectNumber = (word: string, n: number): string => {
+  return word + (n == 1 ? "" : "s"); // very simplistic, Aarne wouldn't be proud
+}
