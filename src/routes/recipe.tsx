@@ -101,7 +101,9 @@ function Body(md: Record<string, any>, isVerbose: boolean): ReactElement {
     if (type == "h2") {
       currSection = content;
     }
-
+    if (type == "img") {
+      continue; // will handle eventually maybe, or maybe not
+    }
     if (currSection == "Steps" && type == "ul") {
       contents.push(Step(content, true));
     } else {
