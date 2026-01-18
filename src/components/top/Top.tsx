@@ -160,9 +160,7 @@ function TopHeader({
         return (
           <button
             onClick={() => onClick(header)}
-            className={`terminal-header-btn ${
-              isActive(header) ? "active" : ""
-            }`}
+            className={`top-header-btn ${isActive(header) ? "active" : ""}`}
           >
             {header}
           </button>

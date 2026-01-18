@@ -232,6 +232,7 @@ nav a.active::after {
 
 .top-header {
   max-height: 48px;
+  min-height: 25px;
 }
 
 p {
@@ -239,11 +240,11 @@ p {
   overflow-wrap: break-word;
 }
 
-.terminal-header-btn {
+.top-header-btn {
   text-align: start;
 }
 
-.terminal-header-btn.active {
+.top-header-btn.active {
   background-color: white;
 }
 
@@ -317,6 +318,7 @@ li {
 
 button {
   border: none;
+  background-color: transparent;
   color: var(--button-color);
   padding: 1em 1em 1em 0em;
   cursor: pointer;
