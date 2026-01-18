@@ -55,10 +55,6 @@ body {
   background-color: var(--primary-color);
 }
 
-button {
-  background-color: var(--primary-color);
-}
-
 nav {
   box-sizing: content-box;
   display: flex;
@@ -95,10 +91,9 @@ nav a.active::after {
 
 /*Small phones */
 @media (width < 400px) {
-
   .tag,
-  .terminal-header>p,
-  .recipe-item>p {
+  .terminal-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -122,10 +117,9 @@ nav a.active::after {
 
 /* large phones */
 @media (width <=480px) {
-
   .tag,
-  .terminal-header>p,
-  .recipe-item>p {
+  .terminal-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -143,10 +137,9 @@ nav a.active::after {
 
 /* tablets*/
 @media (width <=1280px) {
-
   .tag,
-  .terminal-header>p,
-  .recipe-item>p {
+  .terminal-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -162,10 +155,9 @@ nav a.active::after {
 }
 
 @media (width > 1280px) {
-
   .tag,
-  .terminal-header>p,
-  .recipe-item>p {
+  .terminal-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -245,12 +237,21 @@ p {
   min-width: 0;
   overflow-wrap: break-word;
 }
+.terminal-header button {
+  text-align: start;
+}
 
-.terminal-header p {
+.terminal-header-btn.active {
+  background-color: whitesmoke;
+}
+
+.terminal-header p,
+.terminal-header button {
   color: black;
   font-weight: 900;
 }
 
+.terminal-header button,
 .terminal-header p,
 .recipe-item p {
   padding: 0.25em 0.3em;
