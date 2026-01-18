@@ -6,7 +6,7 @@ export function NavBar() {
       <NavLink to="/intro" end>
         intro
       </NavLink>
-      <NavLink to="/terminal">terminal</NavLink>
+      <NavLink to="/top">top</NavLink>
       <NavLink to="/docs" end>
         docs
       </NavLink>

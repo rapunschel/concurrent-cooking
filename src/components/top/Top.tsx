@@ -26,7 +26,7 @@ export function loader({ params, request }: any): {
   return { selectedTag, tags, recipes, q };
 }
 
-export default function Terminal() {
+export default function Top() {
   const {
     selectedTag,
     tags,
@@ -111,7 +111,7 @@ export default function Terminal() {
             );
           })}
         </div>
-        <TerminalHeader
+        <TopHeader
           style={{
             backgroundColor: generateColor(selectedTag, saturation, lightness),
           }}
@@ -119,7 +119,7 @@ export default function Terminal() {
           onClick={handleOnHeaderClick}
         />
       </div>
-      <div className="terminal-content">
+      <div className="top-content">
         <div className="recipe-container">
           {sortedRecipes.map((recipe, index) => {
             return <RecipeItem key={index} recipe={recipe} />;
@@ -127,7 +127,7 @@ export default function Terminal() {
         </div>
       </div>
       <div className="footer">
-        <div className="terminal-cmds">
+        <div className="top-cmds">
           <SearchCommand
             props={{
               q: q,
@@ -141,7 +141,7 @@ export default function Terminal() {
   );
 }
 
-function TerminalHeader({
+function TopHeader({
   style,
   activeHeader,
   onClick,
@@ -155,7 +155,7 @@ function TerminalHeader({
     return activeHeader === header;
   };
   return (
-    <div className="terminal-header" style={style ?? {}}>
+    <div className="top-header" style={style ?? {}}>
       {headers.map((header) => {
         return (
           <button
