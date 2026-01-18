@@ -44,7 +44,6 @@ export default function Terminal() {
   const saturation = 100;
   const lightness = 70;
   const [activeHeader, setHeaderState] = useState("cpus");
-
   const [isSortAsc, setIsSortAsc] = useState(false);
 
   const sortRecipes = (header: string, isAsc: boolean) => {
@@ -68,22 +67,20 @@ export default function Terminal() {
           valA = a.title;
           valB = b.title;
       }
-
-      if (valA < valB) return isAsc ? -1 : 1;
+      if (valA <= valB) return isAsc ? -1 : 1;
       if (valA > valB) return isAsc ? 1 : -1;
       return 0;
     });
   };
+
   const sortedRecipes = useMemo(() => {
     return sortRecipes(activeHeader, isSortAsc);
   }, [activeHeader, isSortAsc, recipes]);
 
   const handleOnHeaderClick = (header: string) => {
     setHeaderState((prev) => {
-      const isAsc = prev === header ? !isSortAsc : true;
-
+      const isAsc = prev === header ? !isSortAsc : false;
       setIsSortAsc(isAsc);
-
       return header;
     });
   };
@@ -151,42 +148,26 @@ function TerminalHeader({
 }: {
   style?: React.CSSProperties;
   activeHeader: string;
-  onClick: any;
+  onClick: (header: string) => void;
 }) {
-  const title = "title";
-  const user = "user";
-  const time = "time";
-  const threads = "cpus";
+  const headers = ["title", "user", "time", "cpus"];
   const isActive = (header: string) => {
     return activeHeader === header;
   };
   return (
     <div className="terminal-header" style={style ?? {}}>
-      <button
-        onClick={() => onClick(title)}
-        className={`terminal-header-btn ${isActive(title) ? "active" : ""}`}
-      >
-        {title}
-      </button>
-      <button
-        onClick={() => onClick(user)}
-        className={`terminal-header-btn ${isActive(user) ? "active" : ""}`}
-      >
-        {user}
-      </button>
-      <button
-        onClick={() => onClick(time)}
-        className={`terminal-header-btn ${isActive(time) ? "active" : ""}`}
-      >
-        {time}
-      </button>
-
-      <button
-        onClick={() => onClick(threads)}
-        className={`terminal-header-btn ${isActive(threads) ? "active" : ""}`}
-      >
-        {threads}
-      </button>
+      {headers.map((header) => {
+        return (
+          <button
+            onClick={() => onClick(header)}
+            className={`terminal-header-btn ${
+              isActive(header) ? "active" : ""
+            }`}
+          >
+            {header}
+          </button>
+        );
+      })}
     </div>
   );
 }
