@@ -237,12 +237,13 @@ p {
   min-width: 0;
   overflow-wrap: break-word;
 }
-.terminal-header button {
+
+.terminal-header-btn {
   text-align: start;
 }
 
 .terminal-header-btn.active {
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 .terminal-header p,
