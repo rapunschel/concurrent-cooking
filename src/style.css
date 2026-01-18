@@ -328,6 +328,7 @@ li {
 button {
   border: none;
   text-decoration: underline;
+  background-color: transparent;
   color: rgb(160, 255, 119);
   padding: 1em 1em 1em 0em;
   cursor: pointer;
