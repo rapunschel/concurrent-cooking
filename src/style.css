@@ -56,10 +56,6 @@ body {
   background-color: var(--primary-color);
 }
 
-button {
-  background-color: var(--primary-color);
-}
-
 nav {
   box-sizing: content-box;
   display: flex;
@@ -96,10 +92,9 @@ nav a.active::after {
 
 /*Small phones */
 @media (width < 400px) {
-
   .tag,
-  .top-header>p,
-  .recipe-item>p {
+  .top-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -123,10 +118,9 @@ nav a.active::after {
 
 /* large phones */
 @media (width <=480px) {
-
   .tag,
-  .top-header>p,
-  .recipe-item>p {
+  .top-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -144,10 +138,9 @@ nav a.active::after {
 
 /* tablets*/
 @media (width <=1280px) {
-
   .tag,
-  .top-header>p,
-  .recipe-item>p {
+  .top-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -163,10 +156,9 @@ nav a.active::after {
 }
 
 @media (width > 1280px) {
-
   .tag,
-  .top-header>p,
-  .recipe-item>p {
+  .top-header > p,
+  .recipe-item > p {
     font-size: 1rem;
   }
 
@@ -240,6 +232,7 @@ nav a.active::after {
 
 .top-header {
   max-height: 48px;
+  min-height: 25px;
 }
 
 p {
@@ -247,7 +240,16 @@ p {
   overflow-wrap: break-word;
 }
 
-.top-header p {
+.top-header-btn {
+  text-align: start;
+}
+
+.top-header-btn.active {
+  background-color: white;
+}
+
+.top-header p,
+.top-header button {
   color: black;
   font-weight: 900;
 }
@@ -285,7 +287,7 @@ p {
 .recipe h2,
 .recipe h3 {
   font-weight: bold;
-  color: #DB66FF;
+  color: #db66ff;
 }
 
 .recipe h1::before {
@@ -316,6 +318,7 @@ li {
 
 button {
   border: none;
+  background-color: transparent;
   color: var(--button-color);
   padding: 1em 1em 1em 0em;
   cursor: pointer;
