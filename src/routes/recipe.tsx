@@ -5,7 +5,7 @@ import { useState, type ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";
 import { inflectNumber } from "../utils/utils.ts";
-import { User } from "../components/terminal/User.tsx";
+import { User } from "../components/top/User.tsx";
 
 export function loader({ params }: any): RecipeData {
   return fetchRecipe(params.user, params.recipeId);

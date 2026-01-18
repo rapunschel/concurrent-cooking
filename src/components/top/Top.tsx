@@ -26,7 +26,7 @@ export function loader({ params, request }: any): {
   return { selectedTag, tags, recipes, q };
 }
 
-export default function Terminal() {
+export default function Top() {
   const {
     selectedTag,
     tags,
@@ -69,13 +69,13 @@ export default function Terminal() {
             );
           })}
         </div>
-        <TerminalHeader
+        <TopHeader
           style={{
             backgroundColor: generateColor(selectedTag, saturation, lightness),
           }}
         />
       </div>
-      <div className="terminal-content">
+      <div className="top-content">
         <div className="recipe-container">
           {recipes.map((recipe, index) => {
             return <RecipeItem key={index} recipe={recipe} />;
@@ -83,7 +83,7 @@ export default function Terminal() {
         </div>
       </div>
       <div className="footer">
-        <div className="terminal-cmds">
+        <div className="top-cmds">
           <SearchCommand
             props={{
               q: q,
@@ -97,13 +97,13 @@ export default function Terminal() {
   );
 }
 
-function TerminalHeader({ style }: { style?: React.CSSProperties }) {
+function TopHeader({ style }: { style?: React.CSSProperties }) {
   return (
-    <div className="terminal-header" style={style ?? {}}>
+    <div className="top-header" style={style ?? {}}>
       <p>title</p>
       <p>user</p>
       <p>time</p>
-      <p>cpus</p>
+      <p>#</p>
     </div>
   );
 }
