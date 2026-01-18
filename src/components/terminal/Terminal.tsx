@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from "react-router";
 import { fetchRecipesData } from "../../data/fetchRecipe.ts";
 import type { RecipeMetaData } from "../../types.ts";
 import { deslugify, slugify } from "../../utils/utils.ts";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { TagItem } from "./partials/TagItem.tsx";
 import { SearchCommand } from "./partials/SearchCommand.tsx";
 import { RecipeItem } from "./partials/RecipeItem.tsx";
@@ -41,61 +41,50 @@ export default function Terminal() {
 
   const [isSearchActive, setSearchActive] = useState(Boolean(q));
   const navigate = useNavigate();
-  const isActive = (header: string) => {
-    return activeHeader === header;
-  };
-  const [{ activeHeader, isSortAsc, sortedRecipes }, setHeaderState] = useState(
-    {
-      activeHeader: "cpus",
-      isSortAsc: false,
-      sortedRecipes: recipes,
-    }
-  );
   const saturation = 100;
   const lightness = 70;
+  const [activeHeader, setHeaderState] = useState("cpus");
+
+  const [isSortAsc, setIsSortAsc] = useState(false);
 
   const sortRecipes = (header: string, isAsc: boolean) => {
-    recipes.sort((a: RecipeMetaData, b: RecipeMetaData): number => {
+    return [...recipes].sort((a, b) => {
+      let valA, valB;
+
       switch (header) {
         case "cpus":
-          console.log("by Cpu");
-          console.log(isAsc);
-
-          if (a.threads <= b.threads) return 1;
-          else return -1;
-
+          valA = a.threads;
+          valB = b.threads;
+          break;
         case "time":
-          console.log("by time");
-          console.log(isAsc);
-
-          if (a.time <= b.time) return 1;
-          else return -1;
-
+          valA = a.time;
+          valB = b.time;
+          break;
         case "user":
-          console.log("by user");
-          console.log(isAsc);
-
-          if (a.user <= b.user) return 1;
-          else return -1;
-
+          valA = a.user;
+          valB = b.user;
+          break;
         default:
-          console.log("by title");
-          console.log(isAsc);
-
-          if (a.title <= b.title) return 1;
-          else return -1;
+          valA = a.title;
+          valB = b.title;
       }
-    });
 
-    if (isAsc) return [...sortedRecipes.reverse()];
-    else return [...sortedRecipes];
+      if (valA < valB) return isAsc ? -1 : 1;
+      if (valA > valB) return isAsc ? 1 : -1;
+      return 0;
+    });
   };
+  const sortedRecipes = useMemo(() => {
+    return sortRecipes(activeHeader, isSortAsc);
+  }, [activeHeader, isSortAsc, recipes]);
 
   const handleOnHeaderClick = (header: string) => {
-    setHeaderState({
-      activeHeader: header,
-      isSortAsc: !isSortAsc,
-      sortedRecipes: sortRecipes(header, !isSortAsc),
+    setHeaderState((prev) => {
+      const isAsc = prev === header ? !isSortAsc : true;
+
+      setIsSortAsc(isAsc);
+
+      return header;
     });
   };
 
