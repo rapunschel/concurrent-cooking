@@ -1,9 +1,9 @@
 :root {
   --primary-color: black;
-  --terminal-min-width: 300px;
-  --terminal-height: 44px;
+  --top-min-width: 300px;
+  --top-height: 44px;
   --taglist-height: 15vh;
-  --terminal-cmds-height: 60px;
+  --top-cmds-height: 60px;
   --link-color: #ffcb59;
   --button-color: rgb(160, 255, 119);
 }
@@ -31,13 +31,13 @@ body,
   grid-row: 1;
 }
 
-.terminal-content {
+.top-content {
   position: relative;
   grid-row: 2;
   overflow-y: auto;
 }
 
-.terminal-header,
+.top-header,
 .recipe-container {
   width: 100vw;
 }
@@ -98,7 +98,7 @@ nav a.active::after {
 @media (width < 400px) {
 
   .tag,
-  .terminal-header>p,
+  .top-header>p,
   .recipe-item>p {
     font-size: 1rem;
   }
@@ -113,9 +113,9 @@ nav a.active::after {
   }
 
   .recipe-item,
-  .terminal-header {
+  .top-header {
     display: grid;
-    min-width: var(--terminal-min-width);
+    min-width: var(--top-min-width);
     overflow-x: auto;
     grid-template-columns: 2fr 1.4fr 1fr 1fr;
   }
@@ -125,7 +125,7 @@ nav a.active::after {
 @media (width <=480px) {
 
   .tag,
-  .terminal-header>p,
+  .top-header>p,
   .recipe-item>p {
     font-size: 1rem;
   }
@@ -136,7 +136,7 @@ nav a.active::after {
   }
 
   .recipe-item,
-  .terminal-header {
+  .top-header {
     display: grid;
     grid-template-columns: 3fr 2fr 1fr 1fr;
   }
@@ -146,7 +146,7 @@ nav a.active::after {
 @media (width <=1280px) {
 
   .tag,
-  .terminal-header>p,
+  .top-header>p,
   .recipe-item>p {
     font-size: 1rem;
   }
@@ -156,7 +156,7 @@ nav a.active::after {
   }
 
   .recipe-item,
-  .terminal-header {
+  .top-header {
     display: grid;
     grid-template-columns: 3fr 2fr 1fr 1fr;
   }
@@ -165,13 +165,13 @@ nav a.active::after {
 @media (width > 1280px) {
 
   .tag,
-  .terminal-header>p,
+  .top-header>p,
   .recipe-item>p {
     font-size: 1rem;
   }
 
   .recipe-item,
-  .terminal-header {
+  .top-header {
     display: grid;
     grid-template-columns: 4fr 2fr 1fr 1fr;
   }
@@ -226,11 +226,11 @@ nav a.active::after {
   box-shadow: none;
 }
 
-.terminal-cmds {
+.top-cmds {
   display: flex;
   justify-content: safe center;
   align-items: safe center;
-  min-width: var(--terminal-min-width);
+  min-width: var(--top-min-width);
   border-top: solid 1px grey;
   gap: 8px;
   padding: 4px;
@@ -238,7 +238,7 @@ nav a.active::after {
   background: var(--primary-color);
 }
 
-.terminal-header {
+.top-header {
   max-height: 48px;
 }
 
@@ -247,19 +247,19 @@ p {
   overflow-wrap: break-word;
 }
 
-.terminal-header p {
+.top-header p {
   color: black;
   font-weight: 900;
 }
 
-.terminal-header p,
+.top-header p,
 .recipe-item p {
   padding: 0.25em 0.3em;
 }
 
 .tag-list {
   display: flex;
-  min-width: var(--terminal-min-width);
+  min-width: var(--top-min-width);
   background-color: var(--primary-color);
   max-height: var(--taglist-height);
   overflow-y: scroll;
