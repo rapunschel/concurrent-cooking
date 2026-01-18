@@ -5,6 +5,7 @@ import { useState, type ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";
 import { inflectNumber } from "../utils/utils.ts";
+import { User } from "../components/terminal/User.tsx";
 
 export function loader({ params }: any): RecipeData {
   return fetchRecipe(params.user, params.recipeId);
@@ -48,7 +49,7 @@ function Head(fm: Record<string, any>, onclick: any): ReactElement {
             <span className="key">tags:</span> {tags}
           </li>
           <li>
-            <span className="key">user:</span> {user}
+            <span className="key">user:</span> <User user={user} />
           </li>
           <li>
             <span className="key">time:</span> {time}
@@ -70,7 +71,7 @@ function Step(
   threads: number = 1
 ): ReactElement {
   return (
-    <>
+    <><li>
       <ul
         className={parallel ? "step parallel" : "step"}
         style={{
@@ -80,7 +81,7 @@ function Step(
       >
         {parse(lis)}
       </ul>
-    </>
+    </li></>
   );
 }
 
@@ -93,25 +94,32 @@ function Tag(
 }
 
 function Body(md: Record<string, any>, isVerbose: boolean): ReactElement {
-  let currSection = undefined;
+  let currSection: string | null = null;
   let contents: ReactElement[] = [];
-  for (const el in md) {
-    const content = md[el].content;
-    const type = md[el].type;
-    if (type == "h2") {
-      currSection = content;
+  let steps: ReactElement[] = [];
+  md.forEach((el: { type: string, content: string }, i: number) => {
+    const content = el.content;
+    const type = el.type;
+    if (i + 1 == md.length) {
+      contents.push(<ol>{steps}</ol>);
     }
-    if (type == "img") {
-      continue; // will handle eventually maybe, or maybe not
-    }
-    if (currSection == "Steps" && type == "ul") {
-      contents.push(Step(content, true));
-    } else {
-      if (!(type == "p" && !isVerbose)) {
-        contents.push(Tag(content, type));
+    if (!(type == "img")) {
+      if (type == "h2") {
+        if (currSection == "Steps") {
+          contents.push(<ol>{steps}</ol>);
+          steps = [];
+        }
+        currSection = content;
+      }
+      if (currSection == "Steps" && type == "ul") {
+        steps.push(Step(content, true));
+      } else {
+        if (!(type == "p" && !isVerbose)) {
+          contents.push(Tag(content, type));
+        }
       }
     }
-  }
+  })
   return <>{contents}</>;
 }
 

@@ -5,6 +5,7 @@
   --taglist-height: 15vh;
   --terminal-cmds-height: 60px;
   --link-color: #ffcb59;
+  --button-color: rgb(160, 255, 119);
 }
 
 * {
@@ -285,13 +286,8 @@ p {
 .recipe h1,
 .recipe h2,
 .recipe h3 {
-  color: rgb(160, 255, 119);
-  font-weight: lighter;
-}
-
-.recipe h2,
-.recipe h3 {
-  font-weight: lighter;
+  font-weight: bold;
+  color: #db66ff;
 }
 
 .recipe h1::before {
@@ -306,13 +302,7 @@ p {
   content: "### ";
 }
 
-ul,
-ol {
-  padding-left: 1em;
-}
-
 li {
-  list-style-type: none;
   padding: 0;
   margin: 0;
 }
@@ -328,15 +318,9 @@ li {
 
 button {
   border: none;
-  text-decoration: underline;
-  background-color: transparent;
-  color: rgb(160, 255, 119);
+  color: var(--button-color);
   padding: 1em 1em 1em 0em;
   cursor: pointer;
-}
-
-li::before {
-  content: "* ";
 }
 
 .step li::before {
@@ -347,15 +331,27 @@ li::before {
   content: "";
 }
 
-ul.step::before {
-  content: "* ";
+.step li {
+  padding-left: 1em;
 }
 
-.step li {
-  list-style-type: none;
+ol li {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+li ul {
   padding-left: 1em;
 }
 
 .cpu {
   font-weight: bolder;
+}
+
+.user {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  color: var(--link-color);
+  text-decoration: none;
 }
