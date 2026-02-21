@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from "react-router";
 import { fetchRecipesData } from "../../data/fetchRecipe.ts";
 import type { RecipeMetaData } from "../../types.ts";
 import { deslugify, slugify } from "../../utils/utils.ts";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { TagItem } from "./partials/TagItem.tsx";
 import { SearchCommand } from "./partials/SearchCommand.tsx";
 import { RecipeItem } from "./partials/RecipeItem.tsx";
@@ -26,7 +26,7 @@ export function loader({ params, request }: any): {
   return { selectedTag, tags, recipes, q };
 }
 
-export default function Terminal() {
+export default function Top() {
   const {
     selectedTag,
     tags,
@@ -40,9 +40,50 @@ export default function Terminal() {
   } = useLoaderData();
 
   const [isSearchActive, setSearchActive] = useState(Boolean(q));
+  const navigate = useNavigate();
   const saturation = 100;
   const lightness = 70;
-  const navigate = useNavigate();
+  const [activeHeader, setHeaderState] = useState("cpus");
+  const [isSortAsc, setIsSortAsc] = useState(false);
+
+  const sortRecipes = (header: string, isAsc: boolean) => {
+    return [...recipes].sort((a, b) => {
+      let valA, valB;
+
+      switch (header) {
+        case "cpus":
+          valA = a.threads;
+          valB = b.threads;
+          break;
+        case "time":
+          valA = a.time;
+          valB = b.time;
+          break;
+        case "user":
+          valA = a.user;
+          valB = b.user;
+          break;
+        default:
+          valA = a.title;
+          valB = b.title;
+      }
+      if (valA <= valB) return isAsc ? -1 : 1;
+      if (valA > valB) return isAsc ? 1 : -1;
+      return 0;
+    });
+  };
+
+  const sortedRecipes = useMemo(() => {
+    return sortRecipes(activeHeader, isSortAsc);
+  }, [activeHeader, isSortAsc, recipes]);
+
+  const handleOnHeaderClick = (header: string) => {
+    setHeaderState((prev) => {
+      const isAsc = prev === header ? !isSortAsc : false;
+      setIsSortAsc(isAsc);
+      return header;
+    });
+  };
 
   const handleOnTagClick = (tag: string) => {
     navigate(`../${slugify(tag)}`, {
@@ -50,6 +91,7 @@ export default function Terminal() {
     });
     if (setSearchActive) setSearchActive(false);
   };
+
   return (
     <>
       <div className="header">
@@ -69,21 +111,23 @@ export default function Terminal() {
             );
           })}
         </div>
-        <TerminalHeader
+        <TopHeader
           style={{
             backgroundColor: generateColor(selectedTag, saturation, lightness),
           }}
+          activeHeader={activeHeader}
+          onClick={handleOnHeaderClick}
         />
       </div>
-      <div className="terminal-content">
+      <div className="top-content">
         <div className="recipe-container">
-          {recipes.map((recipe, index) => {
+          {sortedRecipes.map((recipe, index) => {
             return <RecipeItem key={index} recipe={recipe} />;
           })}
         </div>
       </div>
       <div className="footer">
-        <div className="terminal-cmds">
+        <div className="top-cmds">
           <SearchCommand
             props={{
               q: q,
@@ -97,13 +141,31 @@ export default function Terminal() {
   );
 }
 
-function TerminalHeader({ style }: { style?: React.CSSProperties }) {
+function TopHeader({
+  style,
+  activeHeader,
+  onClick,
+}: {
+  style?: React.CSSProperties;
+  activeHeader: string;
+  onClick: (header: string) => void;
+}) {
+  const headers = ["title", "user", "time", "cpus"];
+  const isActive = (header: string) => {
+    return activeHeader === header;
+  };
   return (
-    <div className="terminal-header" style={style ?? {}}>
-      <p>title</p>
-      <p>user</p>
-      <p>time</p>
-      <p>cpus</p>
+    <div className="top-header" style={style ?? {}}>
+      {headers.map((header) => {
+        return (
+          <button
+            onClick={() => onClick(header)}
+            className={`top-header-btn ${isActive(header) ? "active" : ""}`}
+          >
+            {header}
+          </button>
+        );
+      })}
     </div>
   );
 }

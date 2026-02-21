@@ -4,9 +4,9 @@ import { createHashRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Recipe, { loader as recipeLoader } from "./routes/recipe";
 import Home from "./routes/home";
-import Terminal, {
-  loader as terminalLoader,
-} from "./components/terminal/Terminal.js";
+import Top, {
+  loader as topLoader,
+} from "./components/top/Top.js";
 
 import "./style.css";
 import { NavBar } from "./components/NavBar.js";
@@ -32,10 +32,10 @@ const router = createHashRouter([
   },
   {
     path: "/",
-    element: <Navigate to="/terminal" replace />,
+    element: <Navigate to="/top" replace />,
   },
   {
-    path: "/terminal",
+    path: "/top",
     element: <Home />,
     children: [
       {
@@ -45,14 +45,14 @@ const router = createHashRouter([
 
       {
         path: ":tagId",
-        element: <Terminal />,
-        loader: terminalLoader,
+        element: <Top />,
+        loader: topLoader,
       },
     ],
   },
 
   {
-    path: "/terminal/recipes/:user/:recipeId",
+    path: "/top/recipes/:user/:recipeId",
     element: <Recipe />,
     loader: recipeLoader,
   },

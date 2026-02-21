@@ -1,5 +1,5 @@
 # Concurrent cooking
-A recipe website for programmers.
+A recipe website by programmers, for programmers.
 
 
 ## Run locally

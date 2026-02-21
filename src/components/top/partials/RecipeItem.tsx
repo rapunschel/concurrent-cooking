@@ -23,6 +23,9 @@ export function RecipeItem({
         tabIndex={0}
         className="recipe-item"
         style={style ?? {}}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") handleOnRecipeClick(title, user);
+        }}
         onClick={(event) => {
           event.stopPropagation();
           handleOnRecipeClick(title, user);
