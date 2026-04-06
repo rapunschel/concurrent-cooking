@@ -26,9 +26,9 @@ export  function fetchRecipesData(
   }
 
 
-  const fileredRecipes = tag === "all" ? recipesMetaData : recipesMetaData.filter((recipe) => recipe.tags.includes(tag));
+  const filteredRecipes = tag === "all" ? recipesMetaData : recipesMetaData.filter((recipe) => recipe.tags.includes(tag));
 
-  const recipes = fileredRecipes.filter((recipe) => {
+  const recipes = filteredRecipes.filter((recipe) => {
     if (!query) return true;
     query = query.toLowerCase();
     return (
