@@ -1,3 +1,10 @@
+export const unquote = (text: string): string => {
+  if ((text.startsWith("'") || text.startsWith('"')) && (text.endsWith("'") || text.endsWith('"'))) {
+    return text.slice(1,-1);
+  }
+  return text;
+}
+
 export const deslugify = (text: string): string => {
   return text.replace(/-/g, " ");
 };

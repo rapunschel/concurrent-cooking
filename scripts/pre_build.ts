@@ -1,7 +1,7 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
-import { getMarkdownMetadata } from "ts-markdown-parser";
+import getMarkdownMetadata from "../src/utils/parseRecipe.ts"
 import { slugify } from "../src/utils/utils.ts";
 
 type ApprovedUsers = {
@@ -45,13 +45,13 @@ const main = async () => {
           try {
             const metadata = getMarkdownMetadata(content);
             metadata.user = user;
-            metadata.tags = metadata.tags.replace(" ", "").split(",");
 
             recipes[slugify(metadata.title)] = {
               metadata: metadata,
               recipe: content,
             } as Record<string, any>;
           } catch (e) {
+            console.log(e)
             console.log(`Invalid metadata. Blaming ${user}`);
           }
         }
