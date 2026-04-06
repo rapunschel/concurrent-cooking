@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router";
-import parse from "html-react-parser";
 import { useState, type ReactElement } from "react";
 import { fetchRecipe } from "../data/fetchRecipe";
 import type { RecipeData } from "../types.ts";

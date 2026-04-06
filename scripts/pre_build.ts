@@ -1,7 +1,7 @@
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
-import getMarkdownMetadata from "../src/utils/parseRecipe.ts"
+import getMarkdownMetadata, { getMarkdownData } from "../src/utils/parseRecipe.ts"
 import { slugify } from "../src/utils/utils.ts";
 
 type ApprovedUsers = {
@@ -44,6 +44,7 @@ const main = async () => {
           const content = await res.text();
           try {
             const metadata = getMarkdownMetadata(content);
+            getMarkdownData(content);
             metadata.user = user;
 
             recipes[slugify(metadata.title)] = {
