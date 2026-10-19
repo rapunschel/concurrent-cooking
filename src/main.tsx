@@ -4,12 +4,10 @@ import { createHashRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import Recipe, { loader as recipeLoader } from "./routes/recipe";
 import Home from "./routes/home";
-import Top, {
-  loader as topLoader,
-} from "./components/top/Top.js";
-
+import Top, { loader as topLoader } from "./components/top/Top.js";
 import "./style.css";
 import { NavBar } from "./components/NavBar.js";
+import ErrorPage from "./ErrorPage.js";
 
 const router = createHashRouter([
   {
@@ -33,10 +31,12 @@ const router = createHashRouter([
   {
     path: "/",
     element: <Navigate to="/top" replace />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/top",
     element: <Home />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -54,6 +54,7 @@ const router = createHashRouter([
   {
     path: "/top/recipes/:user/:recipeId",
     element: <Recipe />,
+    errorElement: <ErrorPage />,
     loader: recipeLoader,
   },
 ]);
